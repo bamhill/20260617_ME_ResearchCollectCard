@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科研论文日报 — 2026-06-17</title>
+<style>
+  :root {
+    --ink: #15130f;
+    --paper: #e9e2d6;
+    --red: #d7382f;
+    --muted: #5c554c;
+    --rule: #c4bbb0;
+    --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+    --font-sans: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  /*
+   * Design rule: --muted (#5c554c) on --paper (#e9e2d6) = 5.3:1 contrast.
+   * Meets WCAG AA for normal text. Small labels (section-count, meta, etc.)
+   * must not go lighter than this.
+   */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.26), transparent 28%),
+      linear-gradient(135deg, rgba(21,19,15,0.035) 0 1px, transparent 1px 8px),
+      var(--paper);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    line-height: 1.8;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+  /* ===== COVER — compact, stats right ===== */
+  .cover {
+    padding: 36px 0 20px;
+    border-bottom: 3px double var(--ink);
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .cover::after {
+    content: "◆";
+    display: block;
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 12px;
+    font-size: 8px;
+    color: var(--ink);
+    letter-spacing: 0;
+  }
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+  }
+  .cover-left { flex: 0 1 auto; }
+  .cover-left .kicker {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 5px;
+    padding: 4px 16px;
+    margin-bottom: 14px;
+  }
+  .cover-left h1 {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .cover-left .dateline {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+  .cover-right {
+    text-align: right;
+    flex-shrink: 0;
+    padding-bottom: 4px;
+  }
+  .cover-stat {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--ink);
+    opacity: 0.55;
+    letter-spacing: 1px;
+    line-height: 1.8;
+  }
+  .cover-stat-num {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-right: 2px;
+  }
+  .cover-stat-label {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+  .cover-rule {
+    display: none;
+  }
+
+    /* ===== HOTSPOT — editorial two-column inset ===== */
+  .hot-section {
+    margin: 32px 0 16px;
+    padding: 0 0 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hot-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .hot-col {
+    background: rgba(21,19,15,0.03);
+    border: 1px solid var(--rule);
+    padding: 22px 24px 24px;
+  }
+  .hot-col-head {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--ink);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hot-col-summary {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dotted var(--rule);
+  }
+  .hot-tags { line-height: 1.8; }
+  .hot-tag {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .hot-tag::after {
+    content: " · ";
+    color: var(--red);
+    font-weight: 700;
+    opacity: 0.45;
+  }
+  .hot-tag:last-child::after { content: ""; }
+
+  /* Method items */
+  .hot-methods { line-height: 1.9; }
+  .method-item { display: inline; }
+  .method-trigger {
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 1px 4px;
+    transition: background 0.15s;
+  }
+  .method-trigger:hover { background: rgba(21,19,15,0.05); }
+  .method-name { font-weight: 600; font-size: 11px; }
+  .method-count { font-size: 9px; color: var(--muted); margin-left: 2px; }
+  .method-count::before { content: '('; }
+  .method-count::after { content: ')'; }
+  .method-arrow {
+    font-size: 8px; color: var(--muted); margin-left: 2px;
+    display: inline-block; transition: transform 0.2s;
+  }
+  .method-item[data-expanded="true"] .method-arrow { transform: rotate(90deg); }
+  .method-item::after { content: " · "; color: var(--red); opacity: 0.35; }
+  .method-item:last-child::after { content: ""; }
+
+  .method-detail {
+    display: none;
+    margin: 8px 0 14px 8px;
+    padding: 12px 16px;
+    border-left: 2px solid var(--red);
+    max-height: 296px;
+    overflow-y: auto;
+    font-family: var(--font-sans);
+  }
+  .method-item[data-expanded="true"] .method-detail { display: block; }
+  .method-link {
+    display: block;
+    font-size: 12px;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 5px 0;
+    line-height: 1.5;
+    border-bottom: 1px dotted rgba(196,187,176,0.3);
+  }
+  .method-link:hover { color: var(--red); }
+  .method-link:last-child { border-bottom: none; }
+
+/* ===== SECTION HEADER ===== */
+  .section-header {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #fff;
+    background: var(--red);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 4px 14px;
+    margin: 24px 0 16px;
+  }
+  .section-count {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    opacity: 0.75;
+    margin-left: auto;
+  }
+
+  /* ===== CARD ITEM — left-sidebar layout ===== */
+  .card-item {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 14px;
+    padding: 20px 0 18px;
+    border-bottom: 1px dotted var(--rule);
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+    transition: border-left-color 0.2s;
+    break-inside: avoid;
+  }
+  .card-item:hover { border-left-color: var(--red); }
+  .card-item:last-child { border-bottom: none; }
+  .card-item .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding-top: 1px;
+  }
+  .card-item .num {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1;
+    opacity: 0.45;
+  }
+  .card-item .sidebar .source-tag {
+    font-family: var(--font-sans);
+    font-size: 7px;
+    color: var(--muted);
+    text-align: center;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    opacity: 0.55;
+    max-width: 34px;
+    word-break: break-all;
+  }
+  .card-item .body { min-width: 0; }
+  .card-item h2 {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+  }
+  .card-item h2 a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .card-item h2 a:hover { color: var(--red); border-bottom-color: var(--red); }
+  .card-item .meta {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .card-item .summary {
+    font-size: 14px;
+    color: #3a3630;
+    margin-top: 6px;
+    line-height: 1.7;
+  }
+  .summary-zh { color: #1a1815; }
+
+  /* ===== TAGS ===== */
+  .card-item .tags { margin-top: 8px; }
+  .card-item .tag {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    padding: 2px 10px;
+    margin-right: 6px;
+    margin-top: 4px;
+  }
+
+  /* ===== FOOTER ===== */
+  .source-footer {
+    margin-top: 64px;
+    padding-top: 28px;
+    border-top: 3px double var(--rule);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .source-footer::before {
+    content: "—  FIN  —";
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 12px;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 16px;
+    letter-spacing: 3px;
+  }
+  .save-btn {
+    display: block;
+    margin: 60px auto 0;
+    padding: 12px 32px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .save-btn:hover { background: var(--red); }
+  @media print {
+    .save-btn { display: none; }
+    body { background: #fff; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="report" id="report">
+
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-left">
+      <div class="kicker">DAILY PAPERS</div>
+      <h1>科研论文日报</h1>
+      <div class="dateline">2026-06-17</div>
+    </div>
+    <div class="cover-right">
+      <div class="cover-stat"><span class="cover-stat-num">10</span> 篇论文</div>
+      <div class="cover-stat"><span class="cover-stat-num">11</span> 个板块</div>
+      <div class="cover-stat-label">编辑部精选</div>
+    </div>
+  </div>
+  <div class="cover-rule"></div>
+</div>
+
+
+<div class="hot-section">
+  <div class="hot-columns">
+    <div class="hot-col">
+      <div class="hot-col-head">📌 热点主题</div>
+      <div class="hot-tags">
+        
+          <span class="hot-tag">空间超立方排队</span>
+        
+          <span class="hot-tag">超立方排队模型</span>
+        
+          <span class="hot-tag">深度伪造感知解码</span>
+        
+          <span class="hot-tag">排队模型</span>
+        
+          <span class="hot-tag">软件与数据</span>
+        
+      </div>
+      
+        <div class="hot-col-summary">数据驱动优化与空间排队模型研究</div>
+      
+    </div>
+    <div class="hot-col">
+      <div class="hot-col-head">今日热点方法是什么</div>
+      <div class="hot-methods">
+        
+          <div class="method-item" data-expanded="false">
+            <span class="method-trigger" onclick="this.parentElement.dataset.expanded === 'true' ? this.parentElement.dataset.expanded='false' : this.parentElement.dataset.expanded='true'">
+              <span class="method-name">鲁棒数据驱动拟凹</span>
+              <span class="method-count">1</span>
+              <span class="method-arrow">▸</span>
+            </span>
+            <div class="method-detail">
+              
+                
+                  <a class="method-link" href="https://doi.org/10.1287/ijoc.2025.1570.cd" target="_blank" rel="noopener">Code and Data Repository for Robust Data-Driven Quasiconcave Optimization</a>
+                
+              
+            </div>
+          </div>
+        
+          <div class="method-item" data-expanded="false">
+            <span class="method-trigger" onclick="this.parentElement.dataset.expanded === 'true' ? this.parentElement.dataset.expanded='false' : this.parentElement.dataset.expanded='true'">
+              <span class="method-name">数据驱动拟凹优化</span>
+              <span class="method-count">1</span>
+              <span class="method-arrow">▸</span>
+            </span>
+            <div class="method-detail">
+              
+                
+                  <a class="method-link" href="https://doi.org/10.1287/ijoc.2025.1570.cd" target="_blank" rel="noopener">Code and Data Repository for Robust Data-Driven Quasiconcave Optimization</a>
+                
+              
+            </div>
+          </div>
+        
+          <div class="method-item" data-expanded="false">
+            <span class="method-trigger" onclick="this.parentElement.dataset.expanded === 'true' ? this.parentElement.dataset.expanded='false' : this.parentElement.dataset.expanded='true'">
+              <span class="method-name">几何收敛解法</span>
+              <span class="method-count">1</span>
+              <span class="method-arrow">▸</span>
+            </span>
+            <div class="method-detail">
+              
+                
+                  <a class="method-link" href="https://doi.org/10.1287/ijoc.2025.1353.cd" target="_blank" rel="noopener">Code and Data Repository for A Geometrically Convergent Solution to Spatial Hypercube Queueing Models</a>
+                
+              
+            </div>
+          </div>
+        
+          <div class="method-item" data-expanded="false">
+            <span class="method-trigger" onclick="this.parentElement.dataset.expanded === 'true' ? this.parentElement.dataset.expanded='false' : this.parentElement.dataset.expanded='true'">
+              <span class="method-name">求解空间超立方</span>
+              <span class="method-count">1</span>
+              <span class="method-arrow">▸</span>
+            </span>
+            <div class="method-detail">
+              
+                
+                  <a class="method-link" href="https://doi.org/10.1287/ijoc.2025.1353.cd" target="_blank" rel="noopener">Code and Data Repository for A Geometrically Convergent Solution to Spatial Hypercube Queueing Models</a>
+                
+              
+            </div>
+          </div>
+        
+          <div class="method-item" data-expanded="false">
+            <span class="method-trigger" onclick="this.parentElement.dataset.expanded === 'true' ? this.parentElement.dataset.expanded='false' : this.parentElement.dataset.expanded='true'">
+              <span class="method-name">拟凹优化</span>
+              <span class="method-count">1</span>
+              <span class="method-arrow">▸</span>
+            </span>
+            <div class="method-detail">
+              
+                
+                  <a class="method-link" href="https://doi.org/10.1287/ijoc.2025.1570.cd" target="_blank" rel="noopener">Code and Data Repository for Robust Data-Driven Quasiconcave Optimization</a>
+                
+              
+            </div>
+          </div>
+        
+          <div class="method-item" data-expanded="false">
+            <span class="method-trigger" onclick="this.parentElement.dataset.expanded === 'true' ? this.parentElement.dataset.expanded='false' : this.parentElement.dataset.expanded='true'">
+              <span class="method-name">鲁棒数据驱动</span>
+              <span class="method-count">1</span>
+              <span class="method-arrow">▸</span>
+            </span>
+            <div class="method-detail">
+              
+                
+                  <a class="method-link" href="https://doi.org/10.1287/ijoc.2025.1570.cd" target="_blank" rel="noopener">Code and Data Repository for Robust Data-Driven Quasiconcave Optimization</a>
+                
+              
+            </div>
+          </div>
+        
+          <div class="method-item" data-expanded="false">
+            <span class="method-trigger" onclick="this.parentElement.dataset.expanded === 'true' ? this.parentElement.dataset.expanded='false' : this.parentElement.dataset.expanded='true'">
+              <span class="method-name">数据驱动拟凹</span>
+              <span class="method-count">1</span>
+              <span class="method-arrow">▸</span>
+            </span>
+            <div class="method-detail">
+              
+                
+                  <a class="method-link" href="https://doi.org/10.1287/ijoc.2025.1570.cd" target="_blank" rel="noopener">Code and Data Repository for Robust Data-Driven Quasiconcave Optimization</a>
+                
+              
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="section-header">期刊<span class="section-count">10 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">isr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/isre.2024.1124" target="_blank" rel="noopener">Strategic Throttling in Large Cloud Computing Platforms</a></h2>
+    <div class="meta">Yingda Zhai, Maxwell B. Stinchcombe, Andrew B. Whinston · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS4</span><span class="tag">FMS_A</span><span class="tag">管理信息系统</span></div>
+    <div class="summary">&lt;jats:p&gt;Cloud platforms are critical infrastructure for digital economy. This study explains how large cloud providers use prices and service quality to allocate nonstorable computing time among customers with different willingness to pay and delay sensitivity. Pooling many uncor...</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-1">
+  <div class="sidebar">
+    <span class="num">2</span>
+    <span class="source-tag">ejis</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/0960085x.2026.2684708" target="_blank" rel="noopener">Sustainable energy technologies use: understanding social drivers and humanistic outcomes in four EU countries</a></h2>
+    <div class="meta">Catarina Neves, Tiago Oliveira · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS4</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-2">
+  <div class="sidebar">
+    <span class="num">3</span>
+    <span class="source-tag">isf</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10796-026-10765-9" target="_blank" rel="noopener">Decoding Deepfake Perceptions: Trustworthiness, Importance and Behavioral Intention</a></h2>
+    <div class="meta">Vinod Kumar, Sachin Kumar, Sheshadri Chatterjee et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-3">
+  <div class="sidebar">
+    <span class="num">4</span>
+    <span class="source-tag">isf</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10796-026-10762-y" target="_blank" rel="noopener">Governance under Algorithmic Opacity: How Financial Firms Construct Accountability and Control around AI in Risk Disclosures</a></h2>
+    <div class="meta">Eleni Lioliou, M. May Seitanidi, Lea Stadtler · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    <div class="summary">&lt;jats:title&gt;Abstract&lt;/jats:title&gt;
+                  &lt;jats:p&gt;As artificial intelligence (AI) systems reshape financial decision-making, firms face increasing pressure to assure regulators and investors that they remain in control of new technologies that are inherently opaque and ...</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-4">
+  <div class="sidebar">
+    <span class="num">5</span>
+    <span class="source-tag">ijpr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/00207543.2026.2687627" target="_blank" rel="noopener">ALFA DT: a digital twin for assembly line fitness analytics</a></h2>
+    <div class="meta">Omar Makke, Oleg Gusikhin, S. Ehsan Hashemi-Petroodi et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">生产管理</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-5">
+  <div class="sidebar">
+    <span class="num">6</span>
+    <span class="source-tag">ijpr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/00207543.2026.2688944" target="_blank" rel="noopener">Designing urban heat logistics networks from data center thermal recovery</a></h2>
+    <div class="meta">Imen Sakji, Nadia Nadhaief, Nidhal Rezg · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">生产管理</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-6">
+  <div class="sidebar">
+    <span class="num">7</span>
+    <span class="source-tag">ijoc</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/ijoc.2025.1570.cd" target="_blank" rel="noopener">Code and Data Repository for Robust Data-Driven Quasiconcave Optimization</a></h2>
+    <div class="meta">Jian Wu, William B. Haskell, Wenjie Huang et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">运筹</span></div>
+    <div class="summary">&lt;jats:p&gt;The software and data in this repository are a snapshot of the software and data that were used in the research reported on in the paper Robust Data-Driven Quasiconcave Optimization by J. Wu, W. B. Haskell, W. Huang, and H. Xu.&lt;/jats:p&gt;</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-7">
+  <div class="sidebar">
+    <span class="num">8</span>
+    <span class="source-tag">ijoc</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/ijoc.2025.1353.cd" target="_blank" rel="noopener">Code and Data Repository for A Geometrically Convergent Solution to Spatial Hypercube Queueing Models</a></h2>
+    <div class="meta">Cheng Hua, Jun Luo, Arthur J. Swersey et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">运筹</span></div>
+    <div class="summary">&lt;jats:p&gt;This repository contains the Python implementation of the algorithms developed in the paper for solving spatial hypercube queueing models with geometric convergence.&lt;/jats:p&gt;</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-8">
+  <div class="sidebar">
+    <span class="num">9</span>
+    <span class="source-tag">jim</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10845-026-02891-7" target="_blank" rel="noopener">An explainable question answering system for equipment maintenance with knowledge-enhanced LLM</a></h2>
+    <div class="meta">Yuexiang Yang, Wenzhe Mu, Yubo Chen et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">CAS1</span><span class="tag">制造</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-9">
+  <div class="sidebar">
+    <span class="num">10</span>
+    <span class="source-tag">jkm</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1108/jkm-08-2025-1166" target="_blank" rel="noopener">How does co-worker knowledge-based territoriality influence employee knowledge-hiding behaviors? Evidence from a moderated mediation model</a></h2>
+    <div class="meta">Zijun Zhang, Yoshi Takahashi · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">CAS1</span><span class="tag">知识管理</span></div>
+    <div class="summary">&lt;jats:sec&gt;
+                    &lt;jats:title&gt;Purpose&lt;/jats:title&gt;
+                    &lt;jats:p&gt;This study aims to address the multifaceted issue of territoriality by investigating how and why co-worker knowledge-based territoriality (i.e. marking, defending and expanding) influences...</div>
+  </div>
+</div>
+
+
+<div class="section-header">ABS4<span class="section-count">2 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">isr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/isre.2024.1124" target="_blank" rel="noopener">Strategic Throttling in Large Cloud Computing Platforms</a></h2>
+    <div class="meta">Yingda Zhai, Maxwell B. Stinchcombe, Andrew B. Whinston · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS4</span><span class="tag">FMS_A</span><span class="tag">管理信息系统</span></div>
+    <div class="summary">&lt;jats:p&gt;Cloud platforms are critical infrastructure for digital economy. This study explains how large cloud providers use prices and service quality to allocate nonstorable computing time among customers with different willingness to pay and delay sensitivity. Pooling many uncor...</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-1">
+  <div class="sidebar">
+    <span class="num">2</span>
+    <span class="source-tag">ejis</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/0960085x.2026.2684708" target="_blank" rel="noopener">Sustainable energy technologies use: understanding social drivers and humanistic outcomes in four EU countries</a></h2>
+    <div class="meta">Catarina Neves, Tiago Oliveira · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS4</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    
+  </div>
+</div>
+
+
+<div class="section-header">FMS_A<span class="section-count">1 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">isr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/isre.2024.1124" target="_blank" rel="noopener">Strategic Throttling in Large Cloud Computing Platforms</a></h2>
+    <div class="meta">Yingda Zhai, Maxwell B. Stinchcombe, Andrew B. Whinston · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS4</span><span class="tag">FMS_A</span><span class="tag">管理信息系统</span></div>
+    <div class="summary">&lt;jats:p&gt;Cloud platforms are critical infrastructure for digital economy. This study explains how large cloud providers use prices and service quality to allocate nonstorable computing time among customers with different willingness to pay and delay sensitivity. Pooling many uncor...</div>
+  </div>
+</div>
+
+
+<div class="section-header">管理信息系统<span class="section-count">4 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">isr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/isre.2024.1124" target="_blank" rel="noopener">Strategic Throttling in Large Cloud Computing Platforms</a></h2>
+    <div class="meta">Yingda Zhai, Maxwell B. Stinchcombe, Andrew B. Whinston · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS4</span><span class="tag">FMS_A</span><span class="tag">管理信息系统</span></div>
+    <div class="summary">&lt;jats:p&gt;Cloud platforms are critical infrastructure for digital economy. This study explains how large cloud providers use prices and service quality to allocate nonstorable computing time among customers with different willingness to pay and delay sensitivity. Pooling many uncor...</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-1">
+  <div class="sidebar">
+    <span class="num">2</span>
+    <span class="source-tag">ejis</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/0960085x.2026.2684708" target="_blank" rel="noopener">Sustainable energy technologies use: understanding social drivers and humanistic outcomes in four EU countries</a></h2>
+    <div class="meta">Catarina Neves, Tiago Oliveira · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS4</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-2">
+  <div class="sidebar">
+    <span class="num">3</span>
+    <span class="source-tag">isf</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10796-026-10765-9" target="_blank" rel="noopener">Decoding Deepfake Perceptions: Trustworthiness, Importance and Behavioral Intention</a></h2>
+    <div class="meta">Vinod Kumar, Sachin Kumar, Sheshadri Chatterjee et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-3">
+  <div class="sidebar">
+    <span class="num">4</span>
+    <span class="source-tag">isf</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10796-026-10762-y" target="_blank" rel="noopener">Governance under Algorithmic Opacity: How Financial Firms Construct Accountability and Control around AI in Risk Disclosures</a></h2>
+    <div class="meta">Eleni Lioliou, M. May Seitanidi, Lea Stadtler · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    <div class="summary">&lt;jats:title&gt;Abstract&lt;/jats:title&gt;
+                  &lt;jats:p&gt;As artificial intelligence (AI) systems reshape financial decision-making, firms face increasing pressure to assure regulators and investors that they remain in control of new technologies that are inherently opaque and ...</div>
+  </div>
+</div>
+
+
+<div class="section-header">FMS_B<span class="section-count">5 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">ejis</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/0960085x.2026.2684708" target="_blank" rel="noopener">Sustainable energy technologies use: understanding social drivers and humanistic outcomes in four EU countries</a></h2>
+    <div class="meta">Catarina Neves, Tiago Oliveira · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS4</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-1">
+  <div class="sidebar">
+    <span class="num">2</span>
+    <span class="source-tag">isf</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10796-026-10765-9" target="_blank" rel="noopener">Decoding Deepfake Perceptions: Trustworthiness, Importance and Behavioral Intention</a></h2>
+    <div class="meta">Vinod Kumar, Sachin Kumar, Sheshadri Chatterjee et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-2">
+  <div class="sidebar">
+    <span class="num">3</span>
+    <span class="source-tag">isf</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10796-026-10762-y" target="_blank" rel="noopener">Governance under Algorithmic Opacity: How Financial Firms Construct Accountability and Control around AI in Risk Disclosures</a></h2>
+    <div class="meta">Eleni Lioliou, M. May Seitanidi, Lea Stadtler · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    <div class="summary">&lt;jats:title&gt;Abstract&lt;/jats:title&gt;
+                  &lt;jats:p&gt;As artificial intelligence (AI) systems reshape financial decision-making, firms face increasing pressure to assure regulators and investors that they remain in control of new technologies that are inherently opaque and ...</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-3">
+  <div class="sidebar">
+    <span class="num">4</span>
+    <span class="source-tag">ijpr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/00207543.2026.2687627" target="_blank" rel="noopener">ALFA DT: a digital twin for assembly line fitness analytics</a></h2>
+    <div class="meta">Omar Makke, Oleg Gusikhin, S. Ehsan Hashemi-Petroodi et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">生产管理</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-4">
+  <div class="sidebar">
+    <span class="num">5</span>
+    <span class="source-tag">ijpr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/00207543.2026.2688944" target="_blank" rel="noopener">Designing urban heat logistics networks from data center thermal recovery</a></h2>
+    <div class="meta">Imen Sakji, Nadia Nadhaief, Nidhal Rezg · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">生产管理</span></div>
+    
+  </div>
+</div>
+
+
+<div class="section-header">ABS3<span class="section-count">6 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">isf</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10796-026-10765-9" target="_blank" rel="noopener">Decoding Deepfake Perceptions: Trustworthiness, Importance and Behavioral Intention</a></h2>
+    <div class="meta">Vinod Kumar, Sachin Kumar, Sheshadri Chatterjee et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-1">
+  <div class="sidebar">
+    <span class="num">2</span>
+    <span class="source-tag">isf</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10796-026-10762-y" target="_blank" rel="noopener">Governance under Algorithmic Opacity: How Financial Firms Construct Accountability and Control around AI in Risk Disclosures</a></h2>
+    <div class="meta">Eleni Lioliou, M. May Seitanidi, Lea Stadtler · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">管理信息系统</span></div>
+    <div class="summary">&lt;jats:title&gt;Abstract&lt;/jats:title&gt;
+                  &lt;jats:p&gt;As artificial intelligence (AI) systems reshape financial decision-making, firms face increasing pressure to assure regulators and investors that they remain in control of new technologies that are inherently opaque and ...</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-2">
+  <div class="sidebar">
+    <span class="num">3</span>
+    <span class="source-tag">ijpr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/00207543.2026.2687627" target="_blank" rel="noopener">ALFA DT: a digital twin for assembly line fitness analytics</a></h2>
+    <div class="meta">Omar Makke, Oleg Gusikhin, S. Ehsan Hashemi-Petroodi et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">生产管理</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-3">
+  <div class="sidebar">
+    <span class="num">4</span>
+    <span class="source-tag">ijpr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/00207543.2026.2688944" target="_blank" rel="noopener">Designing urban heat logistics networks from data center thermal recovery</a></h2>
+    <div class="meta">Imen Sakji, Nadia Nadhaief, Nidhal Rezg · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">生产管理</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-4">
+  <div class="sidebar">
+    <span class="num">5</span>
+    <span class="source-tag">ijoc</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/ijoc.2025.1570.cd" target="_blank" rel="noopener">Code and Data Repository for Robust Data-Driven Quasiconcave Optimization</a></h2>
+    <div class="meta">Jian Wu, William B. Haskell, Wenjie Huang et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">运筹</span></div>
+    <div class="summary">&lt;jats:p&gt;The software and data in this repository are a snapshot of the software and data that were used in the research reported on in the paper Robust Data-Driven Quasiconcave Optimization by J. Wu, W. B. Haskell, W. Huang, and H. Xu.&lt;/jats:p&gt;</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-5">
+  <div class="sidebar">
+    <span class="num">6</span>
+    <span class="source-tag">ijoc</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/ijoc.2025.1353.cd" target="_blank" rel="noopener">Code and Data Repository for A Geometrically Convergent Solution to Spatial Hypercube Queueing Models</a></h2>
+    <div class="meta">Cheng Hua, Jun Luo, Arthur J. Swersey et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">运筹</span></div>
+    <div class="summary">&lt;jats:p&gt;This repository contains the Python implementation of the algorithms developed in the paper for solving spatial hypercube queueing models with geometric convergence.&lt;/jats:p&gt;</div>
+  </div>
+</div>
+
+
+<div class="section-header">生产管理<span class="section-count">2 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">ijpr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/00207543.2026.2687627" target="_blank" rel="noopener">ALFA DT: a digital twin for assembly line fitness analytics</a></h2>
+    <div class="meta">Omar Makke, Oleg Gusikhin, S. Ehsan Hashemi-Petroodi et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">生产管理</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-1">
+  <div class="sidebar">
+    <span class="num">2</span>
+    <span class="source-tag">ijpr</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1080/00207543.2026.2688944" target="_blank" rel="noopener">Designing urban heat logistics networks from data center thermal recovery</a></h2>
+    <div class="meta">Imen Sakji, Nadia Nadhaief, Nidhal Rezg · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">FMS_B</span><span class="tag">生产管理</span></div>
+    
+  </div>
+</div>
+
+
+<div class="section-header">运筹<span class="section-count">2 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">ijoc</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/ijoc.2025.1570.cd" target="_blank" rel="noopener">Code and Data Repository for Robust Data-Driven Quasiconcave Optimization</a></h2>
+    <div class="meta">Jian Wu, William B. Haskell, Wenjie Huang et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">运筹</span></div>
+    <div class="summary">&lt;jats:p&gt;The software and data in this repository are a snapshot of the software and data that were used in the research reported on in the paper Robust Data-Driven Quasiconcave Optimization by J. Wu, W. B. Haskell, W. Huang, and H. Xu.&lt;/jats:p&gt;</div>
+  </div>
+</div>
+
+<div class="card-item" id="article-1">
+  <div class="sidebar">
+    <span class="num">2</span>
+    <span class="source-tag">ijoc</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1287/ijoc.2025.1353.cd" target="_blank" rel="noopener">Code and Data Repository for A Geometrically Convergent Solution to Spatial Hypercube Queueing Models</a></h2>
+    <div class="meta">Cheng Hua, Jun Luo, Arthur J. Swersey et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">ABS3</span><span class="tag">运筹</span></div>
+    <div class="summary">&lt;jats:p&gt;This repository contains the Python implementation of the algorithms developed in the paper for solving spatial hypercube queueing models with geometric convergence.&lt;/jats:p&gt;</div>
+  </div>
+</div>
+
+
+<div class="section-header">CAS1<span class="section-count">2 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">jim</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10845-026-02891-7" target="_blank" rel="noopener">An explainable question answering system for equipment maintenance with knowledge-enhanced LLM</a></h2>
+    <div class="meta">Yuexiang Yang, Wenzhe Mu, Yubo Chen et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">CAS1</span><span class="tag">制造</span></div>
+    
+  </div>
+</div>
+
+<div class="card-item" id="article-1">
+  <div class="sidebar">
+    <span class="num">2</span>
+    <span class="source-tag">jkm</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1108/jkm-08-2025-1166" target="_blank" rel="noopener">How does co-worker knowledge-based territoriality influence employee knowledge-hiding behaviors? Evidence from a moderated mediation model</a></h2>
+    <div class="meta">Zijun Zhang, Yoshi Takahashi · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">CAS1</span><span class="tag">知识管理</span></div>
+    <div class="summary">&lt;jats:sec&gt;
+                    &lt;jats:title&gt;Purpose&lt;/jats:title&gt;
+                    &lt;jats:p&gt;This study aims to address the multifaceted issue of territoriality by investigating how and why co-worker knowledge-based territoriality (i.e. marking, defending and expanding) influences...</div>
+  </div>
+</div>
+
+
+<div class="section-header">制造<span class="section-count">1 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">jim</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1007/s10845-026-02891-7" target="_blank" rel="noopener">An explainable question answering system for equipment maintenance with knowledge-enhanced LLM</a></h2>
+    <div class="meta">Yuexiang Yang, Wenzhe Mu, Yubo Chen et al. · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">CAS1</span><span class="tag">制造</span></div>
+    
+  </div>
+</div>
+
+
+<div class="section-header">知识管理<span class="section-count">1 篇</span></div>
+
+<div class="card-item" id="article-0">
+  <div class="sidebar">
+    <span class="num">1</span>
+    <span class="source-tag">jkm</span>
+  </div>
+  <div class="body">
+    <h2><a href="https://doi.org/10.1108/jkm-08-2025-1166" target="_blank" rel="noopener">How does co-worker knowledge-based territoriality influence employee knowledge-hiding behaviors? Evidence from a moderated mediation model</a></h2>
+    <div class="meta">Zijun Zhang, Yoshi Takahashi · 2026-06-17</div>
+    <div class="tags"><span class="tag">期刊</span><span class="tag">CAS1</span><span class="tag">知识管理</span></div>
+    <div class="summary">&lt;jats:sec&gt;
+                    &lt;jats:title&gt;Purpose&lt;/jats:title&gt;
+                    &lt;jats:p&gt;This study aims to address the multifaceted issue of territoriality by investigating how and why co-worker knowledge-based territoriality (i.e. marking, defending and expanding) influences...</div>
+  </div>
+</div>
+
+
+
+<div class="source-footer">
+  isr / ejis / isf / ijpr / ijoc / jim / jkm<br>
+  生成于 2026-06-18 17:01
+</div>
+
+</div>
+<button class="save-btn" onclick="savePNG()">Save PNG</button>
+<script>
+async function savePNG() {
+  var s = document.createElement('script');
+  s.src = 'data:text/javascript;base64,ZnVuY3Rpb24gaHRtbDJjYW52YXMoZSx0KXt2YXIgbj1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJjYW52YXMiKTtyZXR1cm4gbi5nZXRDb250ZXh0KCIyZCIpLFByb21pc2UucmVzb2x2ZShuKX0=';
+  document.head.appendChild(s);
+  await new Promise(function(r) { s.onload = r; });
+  var el = document.getElementById('report');
+  var canvas = await html2canvas(el, { scale: 2, backgroundColor: '#e9e2d6' });
+  var a = document.createElement('a');
+  a.download = 'paper_20260617.png';
+  a.href = canvas.toDataURL();
+  a.click();
+}
+</script>
+</body>
+</html>

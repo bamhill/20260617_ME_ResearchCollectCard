@@ -1,7 +1,7 @@
 # Generated outputs
-out/
 data/cards/
 index.html
+out/_*.html
 
 # Python
 __pycache__/
