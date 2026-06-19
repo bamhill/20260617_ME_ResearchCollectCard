@@ -31,7 +31,8 @@ class Config:
         if source_type in ("arxiv", "biorxiv", "crossref"):
             return [s for s in self.paper_sources if s.type.value == source_type]
         if source_type == "rss":
-            return list(self.wechat_sources)
+            return [s for s in self.paper_sources + self.wechat_sources
+                    if s.type.value == "rss"]
         raise ValueError(f"Unknown source type: {source_type}")
 
     def top_conference_sources(self) -> list[Source]:
@@ -43,8 +44,8 @@ class Config:
         return [s for s in self.paper_sources if s.type.value == "arxiv" and "顶会" not in s.tags]
 
     def journal_sources(self) -> list[Source]:
-        """Return CrossRef journal sources."""
-        return [s for s in self.paper_sources if s.type.value == "crossref"]
+        """Return journal sources (CrossRef + RSS direct feeds)."""
+        return [s for s in self.paper_sources if s.type.value in ("crossref", "rss")]
 
     def all_paper_sources(self) -> list[Source]:
         return list(self.paper_sources)

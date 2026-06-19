@@ -292,6 +292,19 @@
       ]
     },
     {
+      "id": "kbs_rss",
+      "name": "Knowledge-Based Systems (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/09507051",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "大模型",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
       "id": "eaai",
       "name": "Eng. Applications of AI",
       "type": "crossref",
@@ -488,6 +501,232 @@
         "项目管理",
         "管理"
       ]
+    },
+    {
+      "id": "eaai_rss",
+      "name": "Eng. Applications of AI (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/09521976",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "大模型",
+        "工程",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "ipm_rss",
+      "name": "Information Processing & Management (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/00217298",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "NLP",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "asc_rss",
+      "name": "Applied Soft Computing (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/15684946",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "软计算",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "cie_rss",
+      "name": "Computers & Industrial Engineering (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/03608352",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "工程"
+      ]
+    },
+    {
+      "id": "eswa_rss",
+      "name": "Expert Systems with Applications (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/09574174",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "大模型",
+        "工程",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "ress_rss",
+      "name": "Reliability Eng. & System Safety (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/09518320",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "系统工程",
+        "工程"
+      ]
+    },
+    {
+      "id": "aei_rss",
+      "name": "Applied Energy (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/03062619",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "能源",
+        "工程"
+      ]
+    },
+    {
+      "id": "dss_rss",
+      "name": "Decision Support Systems (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/01679236",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "FMS_B",
+        "决策支持",
+        "管理"
+      ]
+    },
+    {
+      "id": "iam_rss",
+      "name": "Information & Management (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/03787206",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "FMS_B",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "is_rss",
+      "name": "Information Systems (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/03064379",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "rcim_rss",
+      "name": "Robotics and CIM (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/07365845",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "制造",
+        "工程"
+      ]
+    },
+    {
+      "id": "tfsc_rss",
+      "name": "Tech. Forecasting & Social Change (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/00401625",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "技术预测",
+        "管理"
+      ]
+    },
+    {
+      "id": "ijim_rss",
+      "name": "Int. J. Information Management (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/02684012",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "信息管理",
+        "管理"
+      ]
+    },
+    {
+      "id": "ijpm_rss",
+      "name": "Int. J. Project Management (RSS)",
+      "type": "rss",
+      "query": "https://rss.sciencedirect.com/publication/science/02637863",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "项目管理",
+        "管理"
+      ]
+    },
+    {
+      "id": "isf_rss",
+      "name": "Information Systems Frontiers (RSS)",
+      "type": "rss",
+      "query": "https://link.springer.com/search.rss?facet-content-type=Article&facet-journal-id=10796",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "FMS_B",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "tkde_rss",
+      "name": "IEEE TKDE (RSS)",
+      "type": "rss",
+      "query": "https://ieeexplore.ieee.org/rss/TOC42.XML",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "数据挖掘",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "jim_rss",
+      "name": "J. Intelligent Manufacturing (RSS)",
+      "type": "rss",
+      "query": "https://link.springer.com/search.rss?facet-content-type=Article&facet-journal-id=10845",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "制造",
+        "工程"
+      ]
+    },
+    {
+      "id": "tem_rss",
+      "name": "IEEE Trans. Engineering Management (RSS)",
+      "type": "rss",
+      "query": "https://ieeexplore.ieee.org/rss/TOC17.XML",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "工程管理",
+        "管理",
+        "工程"
+      ]
     }
   ],
   "wechat_sources": [
@@ -523,6 +762,45 @@
         "知识图谱"
       ],
       "_biz": "MzYzNDE0Mjk1MA=="
+    },
+    {
+      "id": "kgraph_tech",
+      "name": "知识图谱科技",
+      "type": "rss",
+      "query": "http://localhost:4000/feeds/MP_WXS_3278193756.atom",
+      "tags": [
+        "知识图谱",
+        "大模型"
+      ]
+    },
+    {
+      "id": "jsjxb",
+      "name": "计算机学报",
+      "type": "rss",
+      "query": "http://localhost:4000/feeds/MP_WXS_3877937667.atom",
+      "tags": [
+        "CS",
+        "知识图谱"
+      ]
+    },
+    {
+      "id": "ai_frontier",
+      "name": "AI前沿速递",
+      "type": "rss",
+      "query": "http://localhost:4000/feeds/MP_WXS_3938477671.atom",
+      "tags": [
+        "大模型",
+        "多模态"
+      ]
+    },
+    {
+      "id": "openkg",
+      "name": "开放知识图谱",
+      "type": "rss",
+      "query": "http://localhost:4000/feeds/MP_WXS_3566014602.atom",
+      "tags": [
+        "知识图谱"
+      ]
     }
   ]
 }

@@ -1,7 +1,8 @@
 ---
 name: research-collect-card
 description: >
-  科研新资讯卡片生成器。四路输入——arXiv顶会/CS分类 + CrossRef 32本ABS/FMS/CAS期刊 + RSS公众号——
+  科研新资讯卡片生成器。四路输入——arXiv顶会/CS分类 + CrossRef 32本ABS/FMS/CAS期刊
+  + 期刊RSS直连(19本Elsevier/Springer/IEEE) + RSS公众号——
   生成杂志风竖版HTML日报。支持按来源、分级、领域交叉筛选。
   TRIGGER: "生成科研日报", "出论文卡片", "今日AI论文", "期刊精选", "顶会日报",
   "可解释性论文", "ABS3期刊", "工程类论文", "research digest",
@@ -11,17 +12,17 @@ description: >
 
 # ResearchCollectCard — 科研新资讯卡片生成器
 
-Python CLI, 四路输入(arXiv/bioRxiv/CrossRef期刊/RSS公众号) → 杂志风HTML → 一键PNG.
+Python CLI, 四路输入(arXiv/bioRxiv/CrossRef期刊/期刊RSS直连/RSS公众号) → 杂志风HTML → 一键PNG.
 
 ## Commands
 
 ### 论文卡 (paper)
 
 ```bash
-python cli.py paper                              # 今日顶会日报 (默认6源)
+python cli.py paper                              # 今日顶会日报 (默认6源: ICML/NeurIPS/ICLR/ACL/CVPR/AAAI)
 python cli.py paper --source cs                  # CS类 (cat:cs.CL + cs.AI)
-python cli.py paper --source journal             # 32本期刊 (CrossRef)
-python cli.py paper --source all                 # 全40源
+python cli.py paper --source journal             # 期刊精选 (32本CrossRef + 19本RSS直连)
+python cli.py paper --source all                 # 全源
 # 交叉筛选
 python cli.py paper --source journal --topic CAS1           # 中科院1区
 python cli.py paper --source journal --topic ABS4 管理信息系统 # ABS4管理类
@@ -33,7 +34,7 @@ python cli.py paper --from 2026-06-10 --to 2026-06-18 --source journal --topic C
 ### 公众号卡 (wechat)
 
 ```bash
-python cli.py wechat                             # 今日公众号精选 (3源RSS)
+python cli.py wechat                             # 今日公众号精选 (7源RSS)
 python cli.py wechat --from 2026-06-10 --to 2026-06-17  # 区间
 ```
 
@@ -42,7 +43,7 @@ python cli.py wechat --from 2026-06-10 --to 2026-06-17  # 区间
 ### 管理命令
 
 ```bash
-python cli.py sources         # 列出40源 (8 arXiv + 32 CrossRef + 3 RSS)
+python cli.py sources         # 列出62源
 python cli.py cards           # 列出已生成卡片
 python cli.py build           # 重建 out/index.html dashboard
 ```
@@ -53,9 +54,22 @@ python cli.py build           # 重建 out/index.html dashboard
 |----------|------|------|--------|
 | `top` (默认) | 顶会: ICML/NeurIPS/ICLR/ACL/CVPR/AAAI | 6 | arXiv |
 | `cs` | arXiv CS.CL + CS.AI | 2 | arXiv |
-| `journal` | ABS4/3, FMS A/B, CAS1/2 期刊 | 32 | CrossRef |
-| `all` | 全部论文源 | 40 | arXiv+CrossRef |
-| *(wechat)* | 公众号: 老刘NLP/专知/KGraph | 3 | RSS(WeWe) |
+| `journal` | ABS4/3, FMS A/B, CAS1/2 期刊 | 51源(32 CrossRef + 19 RSS) | CrossRef + 期刊RSS |
+| `all` | 全部论文源 | 59 | arXiv+CrossRef+RSS期刊 |
+| *(wechat)* | 公众号: 老刘NLP/专知/KGraph/知识图谱科技/计算机学报/AI前沿速递/开放知识图谱 | 7 | RSS(WeWe) |
+
+### 期刊 RSS 直连
+
+19/32 本期刊已接入 RSS 直连，比 CrossRef 更快（出版当天即抓取）：
+
+| 出版商 | 期刊数 | 状态 |
+|--------|--------|------|
+| Elsevier | 15 | ✅ 直连 (`rss.sciencedirect.com`) |
+| Springer | 2 | ✅ 直连 (`link.springer.com`) |
+| IEEE | 2 | ✅ 直连 (`ieeexplore.ieee.org`) |
+| T&F/Wiley/INFORMS/ACM/SAGE/Emerald | 13 | ⏸ WAF拦截 |
+
+RSS 和 CrossRef 双源并存，pipeline 自动 URL 去重。新增期刊 RSS: 在 `sources.json` 加 `{"type":"rss", "query":"<RSS_URL>", "tags":[...]}` 即可。
 
 ## Topic tags (空格分隔 = AND 交集)
 
@@ -78,13 +92,16 @@ cli.py → Config → FetchPipeline → TransformPipeline → RenderPipeline →
            │         │    │              │                 │
        sources.json  │  fetchers/   src/hotspot.py    templates/
                      │  (策略模式)   YAKE+DeepSeek    (Jinja2杂志风)
+                     │  arxiv/crossref/rss
                      │
                CardRepository
                data/cards/*.json
 ```
 
 - 数据结构: `src/models.py` (Pydantic v2)
-- 新增期刊: 编辑 `sources.json`, 加 `{"type":"crossref", "query":"<ISSN>", "tags":[...]}`
+- Fetcher 策略: `ArxivFetcher` / `CrossrefFetcher` / `RssFetcher` (含 Elsevier summary 日期回落 + TOC 过滤)
+- 新增期刊(CrossRef): 编辑 `sources.json`, 加 `{"type":"crossref", "query":"<ISSN>", "tags":[...]}`
+- 新增期刊(RSS): 加 `{"type":"rss", "query":"<RSS_URL>", "tags":[...]}`
 - 未收录期刊清单: `docs/期刊待收录.md`
 
 ## Environment
