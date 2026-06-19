@@ -1,0 +1,28 @@
+# Generated outputs
+out/
+data/cards/
+index.html
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Data / Cache
+*.csv
+*.xlsx
+.codegraph/
+.gstack/
+wewe-data/
+logs/
+
+# Env / Secrets
+.env
+credentials.json
+.claude/settings.local.json

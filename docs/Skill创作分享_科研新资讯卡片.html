@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill 创作分享 — 科研新资讯卡片生成器</title>
+<style>
+:root {
+  --ink: #15130f;
+  --paper: #e9e2d6;
+  --red: #d7382f;
+  --muted: #5c554c;
+  --rule: #c4bbb0;
+  --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --font-sans: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body {
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.26), transparent 28%),
+              linear-gradient(135deg, rgba(21,19,15,0.035) 0 1px, transparent 1px 8px),
+              var(--paper);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  line-height: 1.85;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 40px 100px;
+}
+
+/* Cover */
+.cover {
+  padding: 48px 0 28px;
+  border-bottom: 3px double var(--ink);
+  position: relative;
+  margin-bottom: 36px;
+  text-align: center;
+}
+.cover::after {
+  content: "◆";
+  display: block;
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  padding: 0 12px;
+  font-size: 8px;
+  color: var(--ink);
+}
+.cover .kicker {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 5px;
+  padding: 4px 18px;
+  margin-bottom: 20px;
+}
+.cover h1 {
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.cover .subtitle {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.cover .subtitle a {
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1px solid var(--red);
+}
+
+/* Section headers */
+h2 {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #fff;
+  background: var(--red);
+  display: inline-block;
+  padding: 4px 16px;
+  margin: 48px 0 20px;
+}
+h3 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--ink);
+  margin: 32px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Body */
+p { margin-bottom: 16px; font-size: 15px; }
+strong { color: var(--ink); }
+a { color: var(--red); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+a:hover { border-bottom-color: var(--red); }
+blockquote {
+  margin: 8px 0 20px;
+  padding: 10px 16px;
+  background: rgba(21,19,15,0.025);
+  border-left: 2px solid var(--red);
+  font-style: italic;
+  color: var(--muted);
+  font-size: 14px;
+}
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 40px 0;
+}
+
+/* Code */
+code {
+  font-family: "SF Mono", "Consolas", "Menlo", monospace;
+  background: rgba(21,19,15,0.05);
+  padding: 2px 6px;
+  font-size: 13px;
+  border-radius: 2px;
+}
+pre {
+  background: rgba(21,19,15,0.04);
+  border: 1px solid var(--rule);
+  padding: 16px 20px;
+  margin: 12px 0 20px;
+  overflow-x: auto;
+  font-size: 12px;
+  line-height: 1.6;
+}
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 12px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+th {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 14px;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 11px;
+}
+td {
+  padding: 8px 14px;
+  border-bottom: 1px dotted var(--rule);
+}
+tr:last-child td { border-bottom: none; }
+
+/* Footer */
+.footer {
+  margin-top: 64px;
+  padding-top: 28px;
+  border-top: 2px solid var(--rule);
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.footer::before {
+  content: "—  FIN  —";
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 16px;
+  letter-spacing: 3px;
+}
+
+/* Article tag — for TRAE category */
+.tag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 2px 12px;
+  margin-right: 6px;
+  margin-top: 6px;
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">SKILL CREATION</div>
+  <h1>我做了一个"自动生成<br>杂志风 AI 科研日报"的 Skill</h1>
+  <div class="subtitle">
+    投稿至 TRAE 官方中文社区 SOLO 技能创作赛<br>
+    设计灵感与文案范式来源：<a href="https://forum.trae.cn/t/topic/18195">@大话数据分析的 AI Daily Report Skill</a>
+  </div>
+  <div>
+    <span class="tag">Skill创作</span>
+    <span class="tag">SOLO技能创作赛</span>
+  </div>
+</div>
+
+# 【Skill 创作】我做了一个"自动生成杂志风 AI 科研日报"的 Skill
+
+<blockquote>投稿至 TRAE 官方中文社区 SOLO 技能创作赛</blockquote>
+<blockquote>GitHub 仓库（公开）：待上传</blockquote>
+<blockquote>设计灵感与文案范式来源：<a href="https://forum.trae.cn/t/topic/18195">@大话数据分析的 AI Daily Report Skill</a></blockquote>
+
+<hr>
+
+<h2>1、Skill 简介</h2>
+
+<strong>科研新资讯卡片生成器 (ResearchCollectCard)</strong> 是一个能从 arXiv 顶会/CS 分类、CrossRef 32 本 ABS/FMS/CAS 期刊、RSS 公众号三路自动抓取最新论文，生成复古编辑部杂志风竖版 HTML 日报的 Claude Code Skill。
+
+你只需要说一句"生成今天的科研日报"或"出 ABS3 管理期刊可解释性卡片"，它就能自动抓取论文、提取热点主题、整理中文摘要、渲染成一份可以直接分享的杂志风日报，底部还带"Save PNG"按钮，一键保存为图片。
+
+<strong>适合谁用</strong>：每天想快速了解 AI/工程/管理领域动态的研究生、青年教师、课题组，以及任何想定期做文献追踪、但又不想每天刷 arXiv + 逐本翻期刊的人。
+
+<hr>
+
+<h2>2、使用场景</h2>
+
+<h3>为什么想做它？</h3>
+
+一个高校课题组/研究生的真实日常：
+
+- <strong>早上 9 点</strong>：打开 arXiv，翻 cs.CL、cs.AI、cs.LG…
+- <strong>中午</strong>：挨个打开 KBS、TKDE、EAAI 期刊主页，看最近上线了什么
+- <strong>下午</strong>：翻几个公众号（NLP、专知），看看有没有错过什么
+- <strong>晚上</strong>：想把今天看到的内容整理成简报，但手动排版要 1 小时
+
+<h3>之前遇到的麻烦</h3>
+
+<table>
+<tr><th>痛点</th><th>具体表现</th></tr>
+<tr><td>信息源分散</td><td>arXiv、CrossRef、RSS 公众号……要刷 5+ 个平台</td></tr>
+<tr><td>期刊太多</td><td>ABS3/4、FMS A/B、CAS 1/2……30+ 本，不可能每天翻</td></tr>
+<tr><td>排版耗时</td><td>手动整理 + 排版一份简报，至少 1 小时</td></tr>
+<tr><td>热点提炼难</td><td>52 篇论文，不知道今天的热点是什么</td></tr>
+<tr><td>分享不便</td><td>纯文字没人看，长图又不好做</td></tr>
+</table>
+
+<h3>做出来之后省掉了什么</h3>
+
+<table>
+<tr><th>之前</th><th>现在</th></tr>
+<tr><td>刷 5+ 平台每天 30 分钟</td><td>一条命令，三路聚合</td></tr>
+<tr><td>翻 30+ 期刊</td><td><code>--source journal --topic CAS1</code></td></tr>
+<tr><td>手动排版 1 小时</td><td>杂志风模板，秒级渲染</td></tr>
+<tr><td>不知道热点</td><td>自动提取 + 分类（主题 / 方法）</td></tr>
+<tr><td>不好分享</td><td>Save PNG 按钮，一键保存图片</td></tr>
+</table>
+
+<strong>一句话总结</strong>：从"刷 30 分钟资讯 + 逐本翻期刊 + 排版 1 小时"到"一句话生成杂志风日报"，每天省出 1.5 小时。
+
+<hr>
+
+<h2>3、创作过程</h2>
+
+<h3>核心思路</h3>
+
+整个 Skill 的架构分 4 层：
+
+<pre><code>数据层 → 处理层 → 热点提取 → 渲染层
+arXiv/crossref/RSS → 去重+排序+合并 → YAKE+DeepSeek → Jinja2杂志风HTML
+</code></pre>
+
+<strong>关键创新</strong>：不是"摘要翻译"，而是从当日全量论文中<strong>自动提取主题热点 + 技术方法热点</strong>并分组展示。
+
+<h3>Step 1：选择数据源</h3>
+
+对比了几个论文聚合平台：
+
+<table>
+<tr><th>平台</th><th>优点</th><th>缺点</th></tr>
+<tr><td>arXiv API</td><td>CS 学科覆盖全，顶会预印本多</td><td>搜不到期刊名</td></tr>
+<tr><td>CrossRef API</td><td>跨出版社、ISSN 精准、免费</td><td>只有正式出版日期，缺 Online First</td></tr>
+<tr><td>RSS 官网</td><td>含期刊 RSS、公众号 RSS</td><td>大批量被 403/418 拦截</td></tr>
+<tr><td>Semantic Scholar</td><td>摘要完整</td><td>需 API key，频率限制严</td></tr>
+</table>
+
+最终选择 <strong>arXiv + CrossRef + RSS 三路并行</strong>：
+- arXiv：顶会（ICML/NeurIPS/ICLR/ACL/CVPR/AAAI）+ CS 学科分类
+- CrossRef：32 本 ABS/FMS/CAS 期刊，ISSN 精准匹配
+- RSS：3 个公众号源（通过 WeWe RSS Docker 转发）
+
+<h3>Step 2：设计内容结构</h3>
+
+参考了 AI Daily 参考设计 + 杂志排版原则：
+
+<pre><code>封面(kicker+标题+团队+日期) → 热点区(主题/方法双列) → 论文清单(按标签分组)
+</code></pre>
+
+热点区是核心特色：
+
+<pre><code>┌── 热点主题 ────────┬── 今日热点方法是什么 ──┐
+│ · LLM · 图分析     │ ▸ 近端策略优化 (2)      │
+│ · 多模态 · 可解释性  │ ▸ 梯度知识蒸馏 (1)      │
+│ ── 本期聚焦... ──── │ ▸ 扩散模型 (5) ▸       │
+│ 大型语言模型在哲学、 │   ┌ 匹配论文列表 ┐      │
+│ 法律与健康领域的应用  │   │ Zone of Proximal│  │
+│                     │   └────────────────┘   │
+└────────────────────┴────────────────────────┘
+</code></pre>
+
+每个方法标签点击展开对应论文清单，可跳转原文。
+
+<h3>Step 3：热点提取——从摘要中自动抓今日焦点</h3>
+
+<strong>技术路线</strong>：YAKE（无需模型下载的英文关键词提取）→ DeepSeek API 翻译+分类
+
+<pre><code>52 篇论文摘要 → YAKE 提取 top 15 英文关键短语
+              → DeepSeek："分为研究主题和技术方法，翻译中文"
+              → 输出：themes=["大语言模型", "多模态对齐"]
+                       methods=["扩散模型", "近端策略优化"]
+              → 方法→论文匹配（英文短语回溯匹配）
+</code></pre>
+
+<h3>Step 4：多标签交叉筛选</h3>
+
+不是"按单一标签过滤"，而是 <strong>AND 交集</strong>：
+
+<pre><code>python cli.py paper --source journal --topic ABS4 管理信息系统
+# 筛选条件：type=crossref AND 有"ABS4"标签 AND 有"管理信息系统"标签
+</code></pre>
+
+这让用户能精确地"只看 ABS3 级工程类期刊"或"只为 CAS1 可解释性论文出卡"。
+
+<h3>Step 5：杂志风视觉设计</h3>
+
+这是最花心思的部分。目标是：<strong>让 HTML 看起来像纸质杂志，而不是网页</strong>。
+
+设计语言：
+- 米色纸张背景（#e9e2d6）— 模拟纸张质感
+- 深墨色文字（#15130f）— 印刷感
+- 红黑强调 — 经典杂志配色（#d7382f）
+- 衬线体标题 — 杂志封面感
+- 虚线分隔 + 留白 — 版块节奏
+- 分区标题红底白字 — 信息层级明确
+
+CSS 设计规则：
+- 对比度 ≥5.3:1（WCAG AA）
+- 红色仅用于结构性强调，不在琐碎标签上撒
+- 全局连续编号，不重置
+
+<hr>
+
+<h2>4、使用步骤</h2>
+
+<h3>安装</h3>
+
+<pre><code>git clone <repo-url>
+cd ME_ResearchCollectCard
+pip install -r requirements.txt
+</code></pre>
+
+<h3>每日使用</h3>
+
+<pre><code># 今日顶会日报（默认 6 源 ICML/NeurIPS/ICLR/ACL/CVPR/AAAI）
+python cli.py paper
+
+# CS 类论文
+python cli.py paper --source cs
+
+# 期刊精选（32 本 ABS/FMS/CAS）
+python cli.py paper --source journal
+
+# 中科院 1 区期刊
+python cli.py paper --source journal --topic CAS1
+
+# ABS3 管理信息系统期刊
+python cli.py paper --source journal --topic ABS3 管理信息系统
+
+# 公众号日报
+python cli.py wechat
+
+# 日期区间（自动合并为一张卡）
+python cli.py paper --from 2026-06-10 --to 2026-06-18 --source journal --topic 可解释性
+</code></pre>
+
+<h3>在 Claude Code 中触发</h3>
+
+直接说：
+
+<pre><code>"生成今天的科研日报"
+"出 ABS3 管理期刊可解释性卡片"
+"生成这周 CS 类的论文日报"
+"公众号日报"
+"期刊精选卡片，只看中科院 1 区"
+</code></pre>
+
+<hr>
+
+<h2>5、效果展示</h2>
+
+<h3>输入</h3>
+
+<pre><code>python cli.py paper --source journal --topic 可解释性 --from 2026-05-19 --to 2026-06-18
+</code></pre>
+
+<h3>输出</h3>
+
+<strong>生成的日报包含</strong>：
+
+- <strong>封面</strong>：日期、团队名（数据智能与知识工程团队）、刊号、红色角标
+- <strong>热点区</strong>：主题热点 + 方法热点双列灰框，点击方法展开对应论文列表
+- <strong>论文清单</strong>：按标签分组，左侧红字编号 + 源标签
+- <strong>来源页脚</strong>：所有数据来源标识
+- <strong>Save PNG 按钮</strong>：一键保存为图片
+
+<strong>视觉风格</strong>：
+
+<table>
+<tr><th>元素</th><th>效果</th></tr>
+<tr><td>背景</td><td>米色纸张质感，不是纯白</td></tr>
+<tr><td>标题</td><td>36px 衬线字，杂志封面感</td></tr>
+<tr><td>强调</td><td>红黑对比，经典杂志配色</td></tr>
+<tr><td>分隔</td><td>虚线 + 留白，节奏感强</td></tr>
+<tr><td>热点区</td><td>双灰框，点击展开方法→文章</td></tr>
+<tr><td>分区标题</td><td>红底白字，层次清晰</td></tr>
+</table>
+
+<strong>输出文件</strong>：
+
+- <code>out/paper_journal_可解释性_20260519_20260618.html</code> — 完全离线，双击直接打开
+- 底部 Save PNG 按钮 — 一键保存为图片
+
+<hr>
+
+<h2>6、Skill 链接</h2>
+
+<strong>GitHub 仓库</strong>：待上传
+
+<strong>包含内容</strong>：
+
+<table>
+<tr><th>文件</th><th>说明</th></tr>
+<tr><td><code>SKILL.md</code></td><td>技能主文件（<code>.claude/skills/research-collect-card/</code>）</td></tr>
+<tr><td><code>cli.py</code></td><td>typer CLI 入口</td></tr>
+<tr><td><code>src/</code></td><td>核心模块：fetchers/pipeline/render/hotspot</td></tr>
+<tr><td><code>sources.json</code></td><td>40 源配置（6 顶会 + 2 CS + 32 期刊）</td></tr>
+<tr><td><code>templates/</code></td><td>Jinja2 杂志风模板</td></tr>
+<tr><td><code>tests/</code></td><td>46 tests，1.29s 全绿</td></tr>
+<tr><td><code>data/cards/</code></td><td>卡片 JSON 积累</td></tr>
+</table>
+
+<hr>
+
+<h2>7、总结与思考</h2>
+
+<h3>效率提升</h3>
+
+<table>
+<tr><th>指标</th><th>之前</th><th>现在</th><th>提升</th></tr>
+<tr><td>信息来源聚合</td><td>刷 arXiv+期刊+公众号 30 分钟</td><td>三路自动聚合</td><td><strong>30x</strong></td></tr>
+<tr><td>期刊筛选</td><td>手动翻 30+ 本期刊目录</td><td><code>--topic ABS4 管理</code></td><td><strong>∞</strong></td></tr>
+<tr><td>热点提炼</td><td>人工浏览摘要后总结</td><td>YAKE+DeepSeek 自动提取</td><td><strong>免人工</strong></td></tr>
+<tr><td>排版设计</td><td>手动排版 1 小时</td><td>杂志风模板秒级渲染</td><td><strong>360x</strong></td></tr>
+</table>
+
+<h3>最满意的地方</h3>
+
+1. <strong>热点自动提取</strong>：不是简单翻译摘要，而是从全量论文中统计高频关键词再分类为主题/方法，有信息增量
+2. <strong>多标签交叉筛选</strong>：ABS4+管理、CAS1+可解释性，像数据库查询一样精准定位
+3. <strong>杂志风视觉</strong>：米色纸张 + 衬线字体 + 红黑强调，真的有"纸质杂志"的感觉
+4. <strong>完全离线</strong>：HTML 双击即开，不依赖任何 CDN
+5. <strong>期刊覆盖广</strong>：CrossRef ISSN 精准匹配，同一条 API 覆盖所有出版社
+
+<h3>踩过的坑</h3>
+
+1. <strong>arXiv 搜不到期刊名</strong>：一开始试图在 arXiv 里用 <code>all:"Knowledge-Based Systems"</code> 搜期刊，全 0。才意识到 arXiv 只收预印本、不索引期刊名，最终走 CrossRef API。
+2. <strong>CrossRef 只有正式出版日期</strong>：期刊上线到 CrossRef 收录有几周延迟——我们 6 月只能搜到 5 月底的论文。RSS 直连出版社做补充是更准确的路线。
+3. <strong>热点提取不能依赖模型下载</strong>：本想在热点提取中用 KeyBERT，但 HuggingFace 在此网络环境不可达。换成 YAKE（纯 Python、零模型下载），效果达标。
+
+<h3>后续优化方向</h3>
+
+- RSS 直连出版社期刊（解决 CrossRef 延迟问题）
+- 支持更多学科主题标签扩展
+- Bohrium API 对接（用户提到的学术聚合平台）
+- MyPlatform 集中管理面板
+
+<hr>
+
+*如果你也在做学术论文追踪或文献管理相关的自动化工具，欢迎在评论区交流。*
+
+
+<div class="footer">
+  科研新资讯卡片生成器 · ResearchCollectCard<br>
+  数据智能与知识工程团队
+</div>
+
+</body>
+</html>

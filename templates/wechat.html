@@ -1,0 +1,51 @@
+{% extends "_base.html" %}
+{% block title %}公众号精选 — {{ card.date }}{% endblock %}
+{% block content %}
+<div class="cover">
+  <div class="kicker">WECHAT DIGEST</div>
+  <h1>公众号精选</h1>
+  <div class="subtitle">技术公众号 · 今日必读</div>
+  <div class="dateline">{{ card.date }}{% if card.date_range %} ({{ card.date_range.start }} ~ {{ card.date_range.end }}){% endif %}</div>
+</div>
+<div class="intro">{{ card.item_count }} 篇文章 &middot; {{ sections|length }} 个主题板块 &middot; 编辑部精选</div>
+
+{% if card.items|length > 0 %}
+<div class="hot-section">
+  <div class="hot-label">今日热点</div>
+  {% for item in card.items[:3] %}
+  <div class="card-item">
+    <div class="sidebar"><span class="num">{{ loop.index }}</span></div>
+    <div class="body">
+      <h2><a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a></h2>
+      <div class="meta">{{ item.authors[0] if item.authors else '' }}{% if item.published %} · {{ item.published }}{% endif %}</div>
+      {% if item.tags %}<div class="tags">{% for t in item.tags %}<span class="tag">{{ t }}</span>{% endfor %}</div>{% endif %}
+      {% if item.summary_raw %}<div class="summary">{{ item.summary_raw[:280] }}{% if item.summary_raw|length > 280 %}...{% endif %}</div>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% for section in sections %}
+<div class="section-header">{{ section.label }}<span class="section-count">{{ section.entries|length }} 篇</span></div>
+{% for item in section.entries %}
+<div class="card-item">
+  <div class="sidebar">
+    <span class="num">{{ loop.index }}</span>
+    <span class="source-tag">{{ item.source_id[:8] }}</span>
+  </div>
+  <div class="body">
+    <h2><a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a></h2>
+    <div class="meta">{{ item.authors[0] if item.authors else '' }}{% if item.published %} · {{ item.published }}{% endif %}</div>
+    {% if item.tags %}<div class="tags">{% for t in item.tags %}<span class="tag">{{ t }}</span>{% endfor %}</div>{% endif %}
+    {% if item.summary_raw %}<div class="summary">{{ item.summary_raw[:280] }}{% if item.summary_raw|length > 280 %}...{% endif %}</div>{% endif %}
+  </div>
+</div>
+{% endfor %}
+{% endfor %}
+
+<div class="source-footer">
+  {{ sources|join(' / ') if sources else '—' }}<br>
+  生成于 {{ card.generated_at.strftime('%Y-%m-%d %H:%M') }}
+</div>
+{% endblock %}

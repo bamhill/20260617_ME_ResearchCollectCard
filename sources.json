@@ -1,0 +1,528 @@
+{
+  "paper_sources": [
+    {
+      "id": "arxiv_cs_cl",
+      "name": "arXiv CS.CL",
+      "type": "arxiv",
+      "query": "cat:cs.CL",
+      "tags": [
+        "大模型",
+        "NLP"
+      ]
+    },
+    {
+      "id": "arxiv_cs_ai",
+      "name": "arXiv CS.AI",
+      "type": "arxiv",
+      "query": "cat:cs.AI",
+      "tags": [
+        "大模型",
+        "多模态"
+      ]
+    },
+    {
+      "id": "icml",
+      "name": "ICML",
+      "type": "arxiv",
+      "query": "cat:cs.LG AND all:\"ICML\"",
+      "tags": [
+        "顶会",
+        "大模型",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "neurips",
+      "name": "NeurIPS",
+      "type": "arxiv",
+      "query": "cat:cs.LG AND all:\"NeurIPS\"",
+      "tags": [
+        "顶会",
+        "大模型",
+        "多模态"
+      ]
+    },
+    {
+      "id": "iclr",
+      "name": "ICLR",
+      "type": "arxiv",
+      "query": "cat:cs.LG AND all:\"ICLR\"",
+      "tags": [
+        "顶会",
+        "大模型",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "acl",
+      "name": "ACL",
+      "type": "arxiv",
+      "query": "cat:cs.CL AND all:\"ACL\"",
+      "tags": [
+        "顶会",
+        "NLP",
+        "大模型"
+      ]
+    },
+    {
+      "id": "cvpr",
+      "name": "CVPR",
+      "type": "arxiv",
+      "query": "cat:cs.CV AND all:\"CVPR\"",
+      "tags": [
+        "顶会",
+        "多模态"
+      ]
+    },
+    {
+      "id": "aaai",
+      "name": "AAAI",
+      "type": "arxiv",
+      "query": "cat:cs.AI AND all:\"AAAI\"",
+      "tags": [
+        "顶会",
+        "大模型",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "misq",
+      "name": "MIS Quarterly",
+      "type": "crossref",
+      "query": "0276-7783",
+      "tags": [
+        "期刊",
+        "ABS4",
+        "FMS_A",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "isr",
+      "name": "Information Systems Research",
+      "type": "crossref",
+      "query": "1047-7047",
+      "tags": [
+        "期刊",
+        "ABS4",
+        "FMS_A",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "jmis",
+      "name": "J. Management Information Systems",
+      "type": "crossref",
+      "query": "0742-1222",
+      "tags": [
+        "期刊",
+        "ABS4",
+        "FMS_A",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "ejis",
+      "name": "European J. Information Systems",
+      "type": "crossref",
+      "query": "0960-085X",
+      "tags": [
+        "期刊",
+        "ABS4",
+        "FMS_B",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "isj",
+      "name": "Information Systems Journal",
+      "type": "crossref",
+      "query": "1350-1917",
+      "tags": [
+        "期刊",
+        "ABS4",
+        "FMS_B",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "pom",
+      "name": "Production & Operations Management",
+      "type": "crossref",
+      "query": "1059-1478",
+      "tags": [
+        "期刊",
+        "ABS4",
+        "FMS_A",
+        "运营管理",
+        "管理"
+      ]
+    },
+    {
+      "id": "jms",
+      "name": "J. Management Studies",
+      "type": "crossref",
+      "query": "0021-7301",
+      "tags": [
+        "期刊",
+        "ABS4",
+        "FMS_A",
+        "管理"
+      ]
+    },
+    {
+      "id": "dss",
+      "name": "Decision Support Systems",
+      "type": "crossref",
+      "query": "0167-9236",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "FMS_B",
+        "决策支持",
+        "管理"
+      ]
+    },
+    {
+      "id": "isf",
+      "name": "Information Systems Frontiers",
+      "type": "crossref",
+      "query": "1387-3326",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "FMS_B",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "iam",
+      "name": "Information & Management",
+      "type": "crossref",
+      "query": "0378-7206",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "FMS_B",
+        "管理信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "ijpr",
+      "name": "Int. J. Production Research",
+      "type": "crossref",
+      "query": "0020-7543",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "FMS_B",
+        "生产管理",
+        "管理",
+        "工程"
+      ]
+    },
+    {
+      "id": "ijoc",
+      "name": "INFORMS J. on Computing",
+      "type": "crossref",
+      "query": "0899-1499",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "运筹",
+        "工程"
+      ]
+    },
+    {
+      "id": "is",
+      "name": "Information Systems",
+      "type": "crossref",
+      "query": "0306-4379",
+      "tags": [
+        "期刊",
+        "ABS3",
+        "信息系统",
+        "管理"
+      ]
+    },
+    {
+      "id": "tkde",
+      "name": "IEEE TKDE",
+      "type": "crossref",
+      "query": "1041-4347",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "数据挖掘",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "tkdd",
+      "name": "ACM TKDD",
+      "type": "crossref",
+      "query": "1556-4681",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "数据挖掘",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "kbs",
+      "name": "Knowledge-Based Systems",
+      "type": "crossref",
+      "query": "0950-7051",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "大模型",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "eaai",
+      "name": "Eng. Applications of AI",
+      "type": "crossref",
+      "query": "0952-1976",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "大模型",
+        "工程",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "ipm",
+      "name": "Information Processing & Management",
+      "type": "crossref",
+      "query": "0021-7298",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "NLP",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "asc",
+      "name": "Applied Soft Computing",
+      "type": "crossref",
+      "query": "1568-4946",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "软计算",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "cie",
+      "name": "Computers & Industrial Engineering",
+      "type": "crossref",
+      "query": "0360-8352",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "工程"
+      ]
+    },
+    {
+      "id": "ci",
+      "name": "Computational Intelligence",
+      "type": "crossref",
+      "query": "0824-7935",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "可解释性",
+        "CS"
+      ]
+    },
+    {
+      "id": "eswa",
+      "name": "Expert Systems with Applications",
+      "type": "crossref",
+      "query": "0957-4174",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "大模型",
+        "工程",
+        "CS",
+        "可解释性"
+      ]
+    },
+    {
+      "id": "ress",
+      "name": "Reliability Eng. & System Safety",
+      "type": "crossref",
+      "query": "0951-8320",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "系统工程",
+        "工程"
+      ]
+    },
+    {
+      "id": "aei",
+      "name": "Applied Energy",
+      "type": "crossref",
+      "query": "0306-2619",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "能源",
+        "工程"
+      ]
+    },
+    {
+      "id": "ra",
+      "name": "Risk Analysis",
+      "type": "crossref",
+      "query": "0272-4332",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "风险分析",
+        "工程"
+      ]
+    },
+    {
+      "id": "jim",
+      "name": "J. Intelligent Manufacturing",
+      "type": "crossref",
+      "query": "0956-5515",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "制造",
+        "工程"
+      ]
+    },
+    {
+      "id": "rcim",
+      "name": "Robotics and CIM",
+      "type": "crossref",
+      "query": "0736-5845",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "制造",
+        "工程"
+      ]
+    },
+    {
+      "id": "tem",
+      "name": "IEEE Trans. Engineering Management",
+      "type": "crossref",
+      "query": "0018-9391",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "工程管理",
+        "管理",
+        "工程"
+      ]
+    },
+    {
+      "id": "tfsc",
+      "name": "Tech. Forecasting & Social Change",
+      "type": "crossref",
+      "query": "0040-1625",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "技术预测",
+        "管理"
+      ]
+    },
+    {
+      "id": "jkm",
+      "name": "J. Knowledge Management",
+      "type": "crossref",
+      "query": "1367-3270",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "知识管理",
+        "管理"
+      ]
+    },
+    {
+      "id": "ijim",
+      "name": "Int. J. Information Management",
+      "type": "crossref",
+      "query": "0268-4012",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "信息管理",
+        "管理"
+      ]
+    },
+    {
+      "id": "ijpm",
+      "name": "Int. J. Project Management",
+      "type": "crossref",
+      "query": "0263-7863",
+      "tags": [
+        "期刊",
+        "CAS1",
+        "项目管理",
+        "管理"
+      ]
+    }
+  ],
+  "wechat_sources": [
+    {
+      "id": "laoliu_nlp",
+      "name": "老刘NLP",
+      "type": "rss",
+      "query": "http://localhost:4000/feeds/MP_WXS_3012772922.atom",
+      "tags": [
+        "大模型",
+        "NLP"
+      ],
+      "_biz": "MzAxMjc3MjkyMg=="
+    },
+    {
+      "id": "zhuanzhi",
+      "name": "专知",
+      "type": "rss",
+      "query": "http://localhost:4000/feeds/MP_WXS_3569047164.atom",
+      "tags": [
+        "多模态",
+        "大模型",
+        "可解释性"
+      ],
+      "_biz": "MzU2OTA0NzE2NA=="
+    },
+    {
+      "id": "kgraph",
+      "name": "KGraph Pattern",
+      "type": "rss",
+      "query": "http://localhost:4000/feeds/MP_WXS_3634142950.atom",
+      "tags": [
+        "知识图谱"
+      ],
+      "_biz": "MzYzNDE0Mjk1MA=="
+    }
+  ]
+}

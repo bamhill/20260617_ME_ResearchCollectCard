@@ -1,0 +1,84 @@
+{% extends "_base.html" %}
+{% block title %}科研论文日报 — {{ card.date }}{% endblock %}
+{% block content %}
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-left">
+      <div class="kicker">DAILY PAPERS</div>
+      <h1>科研论文日报</h1>
+      <div class="dateline">{{ card.date }}{% if card.date_range %} ({{ card.date_range.start }} ~ {{ card.date_range.end }}){% endif %}</div>
+    </div>
+    <div class="cover-right">
+      <div class="cover-stat"><span class="cover-stat-num">{{ card.item_count }}</span> 篇论文</div>
+      <div class="cover-stat"><span class="cover-stat-num">{{ sections|length }}</span> 个板块</div>
+      {% if team %}<div class="cover-team">{{ team }}</div>{% endif %}
+      {% if subtitle %}<div class="cover-subtitle">{{ subtitle }}</div>{% endif %}
+      <div class="cover-stat-label">编辑部精选</div>
+    </div>
+  </div>
+  <div class="cover-rule"></div>
+</div>
+
+{% if card.hotspots and (card.hotspots.themes or card.hotspots.methods) %}
+<div class="hot-section">
+  <div class="hot-columns">
+    <div class="hot-col">
+      <div class="hot-col-head">📌 热点主题</div>
+      <div class="hot-tags">
+        {% for t in card.hotspots.themes %}
+          <span class="hot-tag">{{ t }}</span>
+        {% endfor %}
+      </div>
+      {% if card.hotspots.theme_summary %}
+        <div class="hot-col-summary">{{ card.hotspots.theme_summary }}</div>
+      {% endif %}
+    </div>
+    <div class="hot-col">
+      <div class="hot-col-head">今日热点方法是什么</div>
+      <div class="hot-methods">
+        {% for m in card.hotspots.methods %}
+          <div class="method-item" data-expanded="false">
+            <span class="method-trigger" onclick="this.parentElement.dataset.expanded === 'true' ? this.parentElement.dataset.expanded='false' : this.parentElement.dataset.expanded='true'">
+              <span class="method-name">{{ m.name }}</span>
+              <span class="method-count">{{ m.matched_indices|length }}</span>
+              <span class="method-arrow">▸</span>
+            </span>
+            <div class="method-detail">
+              {% for idx in m.matched_indices %}
+                {% if idx < card.items|length %}
+                  <a class="method-link" href="{{ card.items[idx].url }}" target="_blank" rel="noopener">{{ card.items[idx].title }}</a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% for section in sections %}
+<div class="section-header">{{ section.label }}<span class="section-count">{{ section.entries|length }} 篇</span></div>
+{% for item in section.entries %}
+<div class="card-item" id="article-{{ loop.index0 }}">
+  <div class="sidebar">
+    <span class="num">{{ loop.index }}</span>
+    <span class="source-tag">{{ item.source_id[:8] }}</span>
+  </div>
+  <div class="body">
+    <h2><a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a></h2>
+    <div class="meta">{% if item.authors %}{{ item.authors[:3]|join(', ') }}{% if item.authors|length > 3 %} et al.{% endif %}{% endif %}{% if item.published %} · {{ item.published }}{% endif %}</div>
+    {% if item.tags %}<div class="tags">{% for t in item.tags %}<span class="tag">{{ t }}</span>{% endfor %}</div>{% endif %}
+    {% if item.summary_zh %}<div class="summary summary-zh">{{ item.summary_zh[:200] }}{% if item.summary_zh|length > 200 %}...{% endif %}</div>
+    {% elif item.summary_raw %}<div class="summary">{{ item.summary_raw[:280] }}{% if item.summary_raw|length > 280 %}...{% endif %}</div>{% endif %}
+  </div>
+</div>
+{% endfor %}
+{% endfor %}
+
+<div class="source-footer">
+  {{ sources|join(' / ') if sources else '—' }}<br>
+  生成于 {{ card.generated_at.strftime('%Y-%m-%d %H:%M') }}
+</div>
+{% endblock %}
