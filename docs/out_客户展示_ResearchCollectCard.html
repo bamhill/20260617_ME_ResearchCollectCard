@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>科研卡片 · 客户展示</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#fdf6e8;--surface:#fefcf6;--border:#e0d8c8;--text:#3a3226;--t2:#6b5e4a;--t3:#9b8d7a;--a:#2563eb;--g:#059669;--o:#d97706;--r:#dc2626;--gold:#b8860b;--shadow:0 1px 3px rgba(0,0,0,.06)}
+body{font-family:'Noto Serif SC','Songti SC',-apple-system,serif;background:var(--bg);color:var(--text);padding:48px 24px;background-image:linear-gradient(0deg,transparent 24px,rgba(0,0,0,.02) 25px),linear-gradient(90deg,transparent 24px,rgba(0,0,0,.01) 25px);background-size:25px 25px}
+.w{max-width:1000px;margin:0 auto}
+h1{text-align:center;font-size:1.5rem;font-weight:700;font-family:'Noto Serif SC','Songti SC',serif;margin-bottom:4px}h1 span{color:var(--a)}
+.sub{text-align:center;color:var(--t2);font-size:.82rem;margin-bottom:40px}
+h2{font-size:1rem;padding-left:12px;border-left:3px solid var(--a);margin:44px 0 18px;font-family:'Noto Serif SC','Songti SC',serif}
+p{font-size:.78rem;color:var(--t2);line-height:1.8;margin-bottom:10px;text-indent:2em}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0}
+.col2{flex:1;min-width:320px}.col3{flex:1;min-width:200px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:6px 0;text-align:center;box-shadow:var(--shadow)}
+.card h4{font-size:.8rem;margin-bottom:6px;color:var(--text)}.card p{font-size:.7rem;color:var(--t2);line-height:1.5;text-indent:0}
+.card.accent{border-left:3px solid var(--a)}.card.g{border-left:3px solid var(--g)}
+.story{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:20px 0}
+.story .step{text-align:center;min-width:120px}
+.story .step .num{width:36px;height:36px;border-radius:50%;background:var(--a);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;margin-bottom:8px}
+.story .step .title{font-weight:600;font-size:.8rem;color:var(--text);margin-bottom:2px}
+.story .step .desc{font-size:.62rem;color:var(--t2)}
+.story .arr{color:var(--a);font-size:1.2rem;font-weight:700}
+.hero{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.hero .m{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 24px;text-align:center;min-width:140px;box-shadow:var(--shadow)}
+.hero .m .val{font-size:1.8rem;font-weight:700;color:var(--a)}
+.hero .m .label{font-size:.68rem;color:var(--t2);margin-top:4px}
+.pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.6rem;font-weight:600;margin:1px}
+.pill.a{background:var(--a);color:#fff}.pill.g{background:var(--g);color:#fff}.pill.o{background:var(--o);color:#fff}
+.note{background:rgba(37,99,235,.05);border-left:3px solid var(--a);border-radius:0 6px 6px 0;padding:10px 14px;margin:10px 0;font-size:.7rem;color:var(--t2);line-height:1.6}
+.note strong{color:var(--a)}
+.benefit{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:8px 0;box-shadow:var(--shadow)}
+.benefit .b-icon{font-size:1.2rem;margin-right:8px}
+.benefit .b-title{font-weight:600;font-size:.78rem;color:var(--text);margin-bottom:2px}
+.benefit .b-desc{font-size:.68rem;color:var(--t2);line-height:1.5}
+</style>
+</head>
+<body>
+<div class="w">
+
+<h1><span>ResearchCollectCard</span> · 客户展示</h1>
+<p class="sub">问题 → 方案 → 效果 → 价值</p>
+
+<div class="story">
+<div class="step"><div class="num">1</div><div class="title">信息过载</div><div class="desc">每天arXiv+期刊+公众号<br>手动刷新1.5小时</div></div>
+<div class="arr">→</div>
+<div class="step"><div class="num">2</div><div class="title">自动聚合</div><div class="desc">66源一键抓取<br>3分钟生成日报</div></div>
+<div class="arr">→</div>
+<div class="step"><div class="num">3</div><div class="title">杂志风输出</div><div class="desc">双击即开HTML卡片<br>热点词自动提取</div></div>
+<div class="arr">→</div>
+<div class="step"><div class="num">4</div><div class="title">团队共享</div><div class="desc">截图发课题组群<br>每人跟上最新文献</div></div>
+</div>
+
+<h2>一、解决了什么问题</h2>
+<div class="row">
+<div class="col2"><div class="card"><h4 style="color:var(--r)">❌ 现状痛点</h4><p>每天早上刷 arXiv 好几个分类，翻 30 多本期刊主页，再看几个公众号——光刷新就花不少时间。更别说整理成简报发课题组了。</p></div></div>
+<div class="col2"><div class="card accent"><h4>✅ 我们的方案</h4><p>一个命令，66 个源自动聚合。从摘要里自动提热点词，输出杂志风卡片——双击打开，截图即用。</p></div></div>
+</div>
+
+<div class="hero">
+<div class="m"><div class="val">66</div><div class="label">数据源</div></div>
+<div class="m"><div class="val">3<span style="font-size:1rem">分钟</span></div><div class="label">生成日报</div></div>
+<div class="m"><div class="val">0</div><div class="label">CDN依赖</div></div>
+<div class="m"><div class="val">46</div><div class="label">自动化测试</div></div>
+</div>
+
+<h2>二、核心功能</h2>
+<div class="benefit"><div class="b-icon">📡</div><div class="b-title">四路多源聚合</div><div class="b-desc">arXiv 顶会(ICML/NeurIPS/ICLR等) + CrossRef 32本期刊 + 期刊RSS直连19本 + 7个公众号，一键全抓。</div></div>
+<div class="benefit"><div class="b-icon">🔥</div><div class="b-title">智能热点提取</div><div class="b-desc">YAKE 从全量摘要自动提取关键词 → DeepSeek 翻译分类为"研究主题"和"技术方法"，点击展开对应论文列表。</div></div>
+<div class="benefit"><div class="b-icon">🎨</div><div class="b-title">杂志风视觉设计</div><div class="b-desc">米色纸张(#e9e2d6) + 红黑对比(#d7382f/#15130f) + 衬线体，老派排版，适合截图分享。</div></div>
+<div class="benefit"><div class="b-icon">🏷️</div><div class="b-title">多标签交叉筛选</div><div class="b-desc">按分级(ABS4/3、FMS A/B、CAS1) × 领域(CS/工程/管理/可解释性等)任意组合，想看什么看什么。</div></div>
+
+<h2>三、适用场景</h2>
+<div class="row">
+<div class="col3"><div class="card g"><h4>👨‍🏫 导师</h4><p>每天出卡发课题组群<br>学生跟上最新方向</p></div></div>
+<div class="col3"><div class="card accent"><h4>🎓 研究生</h4><p>入门新方向<br>追踪顶会+对口期刊</p></div></div>
+<div class="col3"><div class="card"><h4>🏢 实验室</h4><p>统一文献追踪<br>知识管理基础设施</p></div></div>
+</div>
+
+<div class="note"><strong>开源免费：</strong> GitHub bamhill/20260617_ME_ResearchCollectCard 公开可用，pip install -r requirements.txt 即装即用。已发布 Claude Code Skill，对话式操作零门槛。</div>
+
+</div>
+</body>
+</html>

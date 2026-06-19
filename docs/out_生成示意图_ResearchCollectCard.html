@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>科研卡片 · 生成示意图</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--t2:#8b949e;--t3:#6e7681;--a:#539bf5;--g:#3fb950;--o:#d29922;--r:#f85149;--gold:#C9A84C}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);padding:40px 24px}
+.w{max-width:1100px;margin:0 auto}
+h1{text-align:center;font-size:1.5rem;margin-bottom:4px}h1 span{color:var(--gold)}
+.sub{text-align:center;color:var(--t2);font-size:.78rem;margin-bottom:40px}
+h2{font-size:1rem;padding-left:12px;border-left:3px solid var(--gold);margin:44px 0 18px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:6px 0;text-align:center}
+.card h4{font-size:.76rem;margin-bottom:6px}.card p{font-size:.66rem;color:var(--t2);line-height:1.5;text-indent:0}
+.card.accent{border-left:3px solid var(--gold)}.card.g{border-left:3px solid var(--g)}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0}
+.col2{flex:1;min-width:320px}
+.note{background:rgba(201,168,76,.06);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:10px 14px;margin:10px 0;font-size:.68rem;color:var(--t2);line-height:1.6}
+.note strong{color:var(--gold)}
+.pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.6rem;font-weight:600;margin:1px}
+.pill.g{background:var(--g);color:#000}.pill.o{background:var(--o);color:#000}
+.annotate{border:2px dashed var(--a);border-radius:8px;padding:8px;position:relative;margin:6px 0}
+.annotate .callout{position:absolute;top:-12px;right:-12px;background:var(--a);color:#fff;font-size:.55rem;padding:2px 6px;border-radius:3px;font-weight:700}
+.mock-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;max-width:420px;margin:12px auto;position:relative}
+.mock-card .mc-header{border-bottom:2px solid var(--border);padding-bottom:10px;margin-bottom:14px}
+.mock-card .mc-title{font-family:'Noto Serif SC',serif;font-size:.85rem;font-weight:700;color:var(--text)}
+.mock-card .mc-date{font-size:.62rem;color:var(--t3);margin-top:2px}
+.mock-card .mc-section{margin:8px 0;padding:8px 0;border-bottom:1px dashed var(--border)}
+.mock-card .mc-section:last-child{border-bottom:none}
+.mock-card .mc-label{font-size:.58rem;color:var(--a);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.mock-card .mc-item{font-size:.68rem;color:var(--text);margin:3px 0;line-height:1.6}
+.mock-card .mc-item .num{color:var(--r);font-weight:600;margin-right:4px}
+.mock-card .mc-hotspot{background:rgba(201,168,76,.08);border:1px solid var(--border);border-radius:6px;padding:10px 12px;margin:6px 0;font-size:.64rem}
+.mock-card .mc-hotspot .hs-title{font-weight:600;font-size:.66rem;color:var(--gold);margin-bottom:4px}
+.mock-card .mc-hotspot .hs-tag{display:inline-block;background:var(--surface);border:1px solid var(--border);padding:1px 6px;border-radius:3px;font-size:.58rem;margin:1px;cursor:pointer}
+.mock-card .mc-footer{text-align:center;color:var(--t3);font-size:.55rem;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="w">
+
+<h1><span>ResearchCollectCard</span> · 生成示意图</h1>
+<p class="sub">杂志风卡片结构 · 热点区交互 · 命令行流程</p>
+
+<h2>卡片结构示意 (顶会日报)</h2>
+<div class="row">
+<div class="col2">
+<div class="mock-card">
+  <div class="annotate"><div class="callout">①</div>
+  <div class="mc-header">
+    <div class="mc-title">科研论文日报</div>
+    <div class="mc-date">2026年6月17日 · 顶会精选 · 共21篇</div>
+  </div>
+  </div>
+  <div class="annotate"><div class="callout">②</div>
+  <div class="mc-hotspot">
+    <div class="hs-title">🔥 本期热点</div>
+    <p style="font-size:.58rem;color:var(--t2);margin:2px 0">研究主题在讨论什么</p>
+    <span class="hs-tag">扩散模型</span><span class="hs-tag">多模态对齐</span><span class="hs-tag">稀疏注意力</span>
+    <p style="font-size:.58rem;color:var(--t2);margin:6px 0 2px">技术方法在用什么</p>
+    <span class="hs-tag">LoRA微调</span><span class="hs-tag">对比学习</span><span class="hs-tag">思维链推理</span>
+  </div>
+  </div>
+  <div class="annotate"><div class="callout">③</div>
+  <div class="mc-section">
+    <div class="mc-label">ICML</div>
+    <div class="mc-item"><span class="num">1.</span> Diffusion Policy Gradient: Offline RL via Diffusion-Based Policy Optimization</div>
+    <div class="mc-item"><span class="num">2.</span> Sparse Attention with Linear Memory Complexity for Long Documents</div>
+  </div>
+  </div>
+  <div class="annotate"><div class="callout">④</div>
+  <div class="mc-section">
+    <div class="mc-label">NeurIPS</div>
+    <div class="mc-item"><span class="num">3.</span> Multi-Modal Alignment through Cross-Attention Bottleneck Layers</div>
+  </div>
+  </div>
+  <div class="mc-footer">米色纸张(#e9e2d6) + 红黑对比 + 衬线体 · 32 papers shown</div>
+</div>
+</div>
+<div class="col2">
+  <p style="margin-bottom:16px"><strong style="color:var(--gold)">① 卡片头部</strong><br><span style="color:var(--t2)">日报标题 · 日期 · 来源标签 · 论文总数</span></p>
+  <p style="margin-bottom:16px"><strong style="color:var(--gold)">② 热点提取区</strong><br><span style="color:var(--t2)">双灰框：上为研究主题，下为技术方法。点击方法标签展开对应论文列表，红色圆点标记。YAKE+DeepSeek 联合提取。</span></p>
+  <p style="margin-bottom:16px"><strong style="color:var(--gold)">③ 论文列表</strong><br><span style="color:var(--t2)">按来源分节，红底白字分区标题。论文按日期降序，红色编号，带分隔虚线。</span></p>
+  <p style="margin-bottom:16px"><strong style="color:var(--gold)">④ 多来源槽</strong><br><span style="color:var(--t2)">同一卡片可容纳多个来源，每源独立分区。期刊卡按期刊名分节，顶会卡按会议分节。</span></p>
+</div>
+</div>
+
+<h2>命令行生成流程</h2>
+<div class="row">
+<div class="col2"><div class="card accent"><h4>CLI 命令</h4><p style="font-family:monospace;color:var(--g)">python cli.py paper<br>--source journal<br>--topic 可解释性<br>--date 2026-06-17</p></div></div>
+<div class="col2"><div class="card g"><h4>对话式 (Skill)</h4><p style="color:var(--t2)">"生成今天的科研日报"<br>"出 ABS3 可解释性期刊卡片"<br>"生成这周顶会日报"<br>Claude Code Skill 自动识别</p></div></div>
+</div>
+
+<div class="note"><strong>设计规则：</strong> 对比度≥5.3:1(AA级) · 红色仅用于结构性强调 · 衬线体正文+sans-serif标签 · 11px标签内联流式不换行 · 分区标题红底白字4px字间距</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>科研卡片 · 项目总结</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--t2:#8b949e;--t3:#6e7681;--a:#539bf5;--g:#3fb950;--o:#d29922;--r:#f85149;--gold:#C9A84C}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);padding:40px 24px}
+.w{max-width:1000px;margin:0 auto}
+h1{text-align:center;font-size:1.5rem;margin-bottom:4px}h1 span{color:var(--gold)}
+.sub{text-align:center;color:var(--t2);font-size:.78rem;margin-bottom:40px}
+h2{font-size:1rem;padding-left:12px;border-left:3px solid var(--gold);margin:44px 0 18px}
+p{font-size:.78rem;color:var(--t2);line-height:1.8;margin-bottom:10px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:6px 0;text-align:center}
+.card h4{font-size:.76rem;margin-bottom:6px}.card p{font-size:.66rem;color:var(--t2);line-height:1.5;text-indent:0}
+.card.accent{border-left:3px solid var(--gold)}.card.g{border-left:3px solid var(--g)}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0}
+.col2{flex:1;min-width:320px}.col3{flex:1;min-width:200px}
+table{width:100%;border-collapse:collapse;font-size:.7rem;margin:10px 0}
+th{background:var(--surface);color:var(--gold);padding:8px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--t2)}
+td.yes{color:var(--g);font-weight:600}
+.timeline{position:relative;padding-left:30px;margin:14px 0}
+.timeline::before{content:"";position:absolute;left:12px;top:0;bottom:0;width:2px;background:var(--border)}
+.timeline .tl{position:relative;margin-bottom:16px}
+.timeline .tl::before{content:"";position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--bg)}
+.timeline .tl .tl-date{font-size:.62rem;color:var(--t3);margin-bottom:2px}
+.timeline .tl .tl-title{font-weight:600;font-size:.76rem;color:var(--text)}
+.timeline .tl .tl-desc{font-size:.66rem;color:var(--t2)}
+</style>
+</head>
+<body>
+<div class="w">
+
+<h1><span>ResearchCollectCard</span> · 项目总结</h1>
+<p class="sub">2026-06-17 立项 → 2026-06-19 收尾 · 3天迭代 · 66源 · 46 tests</p>
+
+<h2>目标达成</h2>
+<table><tr><th>目标</th><th>状态</th><th>实际</th></tr>
+<tr><td>arXiv 论文抓取</td><td class="yes">✓</td><td>8源(6顶会+2CS)</td></tr>
+<tr><td>期刊论文抓取</td><td class="yes">✓</td><td>32本CrossRef+19本RSS直连</td></tr>
+<tr><td>公众号抓取</td><td class="yes">✓</td><td>7源(WeWe RSS桥接)</td></tr>
+<tr><td>热点提取</td><td class="yes">✓</td><td>YAKE+DeepSeek双灰框展开</td></tr>
+<tr><td>杂志风HTML</td><td class="yes">✓</td><td>米色纸张+红黑+衬线体</td></tr>
+<tr><td>多标签筛选</td><td class="yes">✓</td><td>AND交集·分级·领域·来源</td></tr>
+<tr><td>GitHub公开</td><td class="yes">✓</td><td>bamhill/20260617_ME_ResearchCollectCard</td></tr>
+<tr><td>Claude Code Skill</td><td class="yes">✓</td><td>research-collect-card已发布</td></tr>
+<tr><td>小红书推广</td><td class="yes">✓</td><td>文案+双图配图已发</td></tr>
+</table>
+
+<h2>关键决策</h2>
+<div class="row">
+<div class="col2"><div class="card accent"><h4>RSS双源策略</h4><p>RSS直连抢时效(出版当天抓到) + CrossRef保底(延迟但不漏)。19/32本已直连，13本被Cloudflare/WAF拦截暂无法解决。</p></div></div>
+<div class="col2"><div class="card"><h4>严格日匹配</h4><p>RSS不使用时间窗口，按论文出版日精确匹配——期刊论文各有固定pub date，不应混入非当天论文。</p></div></div>
+<div class="col2"><div class="card"><h4>数据驱动设计</h4><p>新增来源只需编辑sources.json，不改代码。Fetcher按source.type.value自动派发，Config提供标签筛选视图。</p></div></div>
+</div>
+
+<h2>技术栈</h2>
+<p>Python 3.10+ · typer(CLI) · pydantic v2(模型) · jinja2(模板) · feedparser(RSS) · httpx(HTTP) · YAKE(关键词) · DeepSeek API(翻译分类) · Pillow(截图合成)</p>
+
+<h2>开发时间线</h2>
+<div class="timeline">
+<div class="tl"><div class="tl-date">2026-06-17</div><div class="tl-title">项目初始化</div><div class="tl-desc">CLI骨架 · arXiv fetcher · RSS阻塞排查 · WeWe Docker部署 · 3公众号接入</div></div>
+<div class="tl"><div class="tl-date">2026-06-18</div><div class="tl-title">三路贯通</div><div class="tl-desc">CrossRef 32本期刊接入 · 多标签AND筛选 · 杂志风模板定型 · 日期区间合并</div></div>
+<div class="tl"><div class="tl-date">2026-06-19</div><div class="tl-title">完善收尾</div><div class="tl-desc">期刊RSS直连19本 · 公众号扩至7个 · Skill发布 · GitHub公开 · 小红书发帖 · 系列out_文档</div></div>
+</div>
+
+<h2>遗留事项</h2>
+<table><tr><th>事项</th><th>原因</th><th>优先级</th></tr>
+<tr><td>13本期刊RSS(WAF拦截)</td><td>Cloudflare/WAF bot检测，需cookie注入或代理</td><td>P2</td></tr>
+<tr><td>KeyBERT替代YAKE</td><td>HuggingFace网络不通</td><td>P2</td></tr>
+<tr><td>TRAE论坛发帖</td><td>待排期</td><td>P3</td></tr>
+<tr><td>未收录期刊补充</td><td>需求待明确</td><td>P3</td></tr>
+</table>
+
+<h2>产出清单</h2>
+<div class="row">
+<div class="col3"><div class="card g"><h4>📦 代码</h4><p>cli.py · src/ · templates/<br>tests/ (46 tests PASS)</p></div></div>
+<div class="col3"><div class="card accent"><h4>📄 文档</h4><p>README · SKILL.md · 8 out_<br>小红书文案 · 开发文档</p></div></div>
+<div class="col3"><div class="card"><h4>🌐 分发</h4><p>GitHub公开 · Skill发布<br>小红书已发</p></div></div>
+</div>
+
+</div>
+</body>
+</html>

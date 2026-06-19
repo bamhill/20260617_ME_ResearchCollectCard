@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>科研卡片 · 应用范式</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--t2:#8b949e;--t3:#6e7681;--a:#539bf5;--g:#3fb950;--o:#d29922;--r:#f85149;--gold:#C9A84C}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);padding:40px 24px}
+.w{max-width:1000px;margin:0 auto}
+h1{text-align:center;font-size:1.5rem;margin-bottom:4px}h1 span{color:var(--gold)}
+.sub{text-align:center;color:var(--t2);font-size:.78rem;margin-bottom:40px}
+h2{font-size:1rem;padding-left:12px;border-left:3px solid var(--gold);margin:44px 0 18px}
+p{font-size:.78rem;color:var(--t2);line-height:1.8;margin-bottom:10px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:6px 0;text-align:center}
+.card h4{font-size:.76rem;margin-bottom:6px}.card p{font-size:.66rem;color:var(--t2);line-height:1.5;text-indent:0}
+.card.accent{border-left:3px solid var(--gold)}.card.g{border-left:3px solid var(--g)}.card.o{border-left:3px solid var(--o)}.card.r{border-left:3px solid var(--r)}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0}
+.col2{flex:1;min-width:320px}
+.note{background:rgba(201,168,76,.06);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:10px 14px;margin:10px 0;font-size:.68rem;color:var(--t2);line-height:1.6}
+.note strong{color:var(--gold)}
+.pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.6rem;font-weight:600;margin:1px}
+.pill.g{background:var(--g);color:#000}.pill.o{background:var(--o);color:#000}.pill.r{background:var(--r);color:#fff}
+.step-num{display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#000;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;margin-right:6px}
+.pipe{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0}
+.pipe .stage{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 18px;text-align:center;font-size:.7rem;min-width:98px}
+.pipe .stage .sn{font-size:.58rem;color:var(--t3);margin-bottom:3px}
+.pipe .stage .sl{font-weight:600;font-size:.75rem;margin-bottom:2px}
+.pipe .stage .ss{font-size:.6rem;color:var(--t2);line-height:1.5}
+.pipe .arrow{color:var(--gold);font-size:1rem}
+</style>
+</head>
+<body>
+<div class="w">
+
+<h1><span>ResearchCollectCard</span> · 应用范式</h1>
+<p class="sub">三大典型使用场景 · 操作步骤 · 效果 · 适用范围</p>
+
+<h2>范式一：课题组日常晨报</h2>
+<div class="row">
+<div class="col2"><div class="card accent"><h4>适用场景</h4><p>导师/博士生每天早上出卡，截图发课题组群，让大家跟上最新文献。</p></div></div>
+<div class="col2"><div class="card g"><h4>效果</h4><p>从手动刷arXiv+期刊1.5小时，压缩到3分钟。学生不用各自刷，统一看日报即可。</p></div></div>
+</div>
+<div class="pipe">
+<div class="stage"><div class="sn">Step 1</div><div class="sl">启动WeRSS</div><div class="ss">docker start wewe-rss<br>（仅公众号需要）</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">Step 2</div><div class="sl">生成卡片</div><div class="ss">python cli.py paper<br>python cli.py wechat</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">Step 3</div><div class="sl">截图分享</div><div class="ss">双击out/*.html<br>Ctrl+P 存PNG<br>发课题组群</div></div>
+</div>
+
+<h2>范式二：方向聚焦 — 只看对口期刊+特定领域</h2>
+<div class="row">
+<div class="col2"><div class="card o"><h4>适用场景</h4><p>做可解释性方向的研究生，只想看ABS3以上+CS领域+可解释性标签的期刊论文。</p></div></div>
+<div class="col2"><div class="card g"><h4>效果</h4><p>从32本期刊+arXiv中精准筛出10-15篇，不浪费精力在无关论文上。</p></div></div>
+</div>
+<p style="font-family:monospace;font-size:.7rem;color:var(--g);text-indent:0;background:var(--surface);padding:8px 14px;border-radius:6px">
+python cli.py paper --source journal --topic 可解释性 --date 2026-06-17
+</p>
+
+<h2>范式三：区间回顾 — 本周+上周对比</h2>
+<div class="row">
+<div class="col2"><div class="card o"><h4>适用场景</h4><p>组会前生成一周汇总，看看这周研究方向有什么新趋势。</p></div></div>
+<div class="col2"><div class="card g"><h4>效果</h4><p>区间自动去重合并，一张卡片覆盖多天，热点词跨天聚合。</p></div></div>
+</div>
+<p style="font-family:monospace;font-size:.7rem;color:var(--g);text-indent:0;background:var(--surface);padding:8px 14px;border-radius:6px">
+python cli.py paper --from 2026-06-10 --to 2026-06-17 --source journal --topic CS
+</p>
+
+<h2>范式四：新来源扩展</h2>
+<div class="row">
+<div class="col2"><div class="card"><h4>+ CrossRef 期刊</h4><p>在 sources.json 的 paper_sources 中添加：{"type":"crossref", "query":"ISSN号", "tags":["期刊","领域"]}<br>自动归入 journal 源组</p></div></div>
+<div class="col2"><div class="card"><h4>+ RSS 直连</h4><p>在 sources.json 的 paper_sources 中添加：{"type":"rss", "query":"RSS_URL", "tags":["期刊","领域"]}<br>自动归入 journal_sources()</p></div></div>
+</div>
+
+<h2>不适场景</h2>
+<div class="card r"><h4>⚠ 不适合的情况</h4><p>需要全文检索/引文分析 → 用 Zotero/Semantic Scholar<br>需要AI摘要/翻译 → 当前仅翻译标题，不做全文摘要<br>需要定时任务 → 暂无 cron 集成，需手动执行<br>需要GUI界面 → 纯CLI+HTML输出</p></div>
+
+<div class="note"><strong>核心设计原则：</strong> 数据驱动配置(sources.json) → 策略派发(Fetcher) → 流水线加工 → 零CDN输出。新增源只需编辑JSON，不改代码。</div>
+
+</div>
+</body>
+</html>

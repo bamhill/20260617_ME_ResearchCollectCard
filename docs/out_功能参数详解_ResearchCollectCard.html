@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>科研卡片 · 功能参数详解</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--t2:#8b949e;--t3:#6e7681;--a:#539bf5;--g:#3fb950;--o:#d29922;--r:#f85149;--gold:#C9A84C}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);padding:40px 24px}
+.w{max-width:1100px;margin:0 auto}
+h1{text-align:center;font-size:1.5rem;margin-bottom:4px}h1 span{color:var(--gold)}
+.sub{text-align:center;color:var(--t2);font-size:.78rem;margin-bottom:40px}
+h2{font-size:1rem;padding-left:12px;border-left:3px solid var(--gold);margin:44px 0 18px}
+h3{font-size:.85rem;color:var(--gold);margin:20px 0 10px}
+table{width:100%;border-collapse:collapse;font-size:.7rem;margin:10px 0}
+th{background:var(--surface);color:var(--gold);padding:8px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--t2)}
+td code{background:rgba(201,168,76,.1);color:var(--g);padding:1px 5px;border-radius:3px;font-size:.65rem}
+.note{background:rgba(201,168,76,.06);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:10px 14px;margin:10px 0;font-size:.68rem;color:var(--t2);line-height:1.6}
+.note strong{color:var(--gold)}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.page-grid .pg{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.page-grid .pg .pg-icon{font-size:1.3rem;margin-bottom:6px}
+.page-grid .pg .pg-title{font-weight:600;font-size:.76rem;margin-bottom:8px}
+.page-grid .pg .pg-desc{font-size:.62rem;color:var(--t2);line-height:1.6;text-align:left}
+.page-grid .pg .pg-desc code{background:rgba(201,168,76,.1);color:var(--g);padding:1px 4px;border-radius:2px;font-size:.58rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:6px 0;text-align:center}
+.card h4{font-size:.76rem;margin-bottom:6px}.card p{font-size:.66rem;color:var(--t2);line-height:1.5;text-indent:0}
+.card.accent{border-left:3px solid var(--gold)}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0}
+.col2{flex:1;min-width:320px}.col3{flex:1;min-width:200px}
+</style>
+</head>
+<body>
+<div class="w">
+
+<h1><span>ResearchCollectCard</span> · 功能参数详解</h1>
+<p class="sub">CLI 全参数 · Source 配置 · Fetcher 接口 · 输出格式</p>
+
+<h2>一、CLI 命令全参数</h2>
+
+<h3>paper — 论文日报</h3>
+<table><tr><th>参数</th><th>类型</th><th>默认</th><th>说明</th></tr>
+<tr><td><code>--date</code></td><td>str</td><td>今天</td><td>日期 YYYY-MM-DD</td></tr>
+<tr><td><code>--from</code></td><td>str</td><td>—</td><td>起始日期，与 --to 配用</td></tr>
+<tr><td><code>--to</code></td><td>str</td><td>—</td><td>结束日期，多天自动合并去重</td></tr>
+<tr><td><code>--source</code></td><td>str</td><td>top</td><td>top(顶会6) | cs(2) | journal(51) | all(59)</td></tr>
+<tr><td><code>--topic</code></td><td>str</td><td>—</td><td>多标签AND筛选，空格分隔。例: "ABS4 管理信息系统"</td></tr>
+<tr><td><code>--translate</code></td><td>flag</td><td>False</td><td>翻译英文摘要为中文 (DeepSeek)</td></tr></table>
+
+<h3>wechat — 公众号日报</h3>
+<table><tr><th>参数</th><th>类型</th><th>默认</th><th>说明</th></tr>
+<tr><td><code>--date</code></td><td>str</td><td>今天</td><td>日期 YYYY-MM-DD</td></tr>
+<tr><td><code>--from</code></td><td>str</td><td>—</td><td>起始日期</td></tr>
+<tr><td><code>--to</code></td><td>str</td><td>—</td><td>结束日期</td></tr></table>
+
+<h3>管理命令</h3>
+<table><tr><th>命令</th><th>说明</th></tr>
+<tr><td><code>python cli.py sources</code></td><td>列出所有66源 (名称+类型+查询参数)</td></tr>
+<tr><td><code>python cli.py cards</code></td><td>列出已生成卡片 (ID+日期+条目数)</td></tr>
+<tr><td><code>python cli.py build</code></td><td>重建 out/index.html dashboard</td></tr></table>
+
+<h2>二、Source 配置参数</h2>
+<table><tr><th>字段</th><th>类型</th><th>必填</th><th>说明</th></tr>
+<tr><td><code>id</code></td><td>str</td><td>✓</td><td>唯一标识，用于去重和筛选</td></tr>
+<tr><td><code>name</code></td><td>str</td><td>✓</td><td>显示名称，出现在卡片分区标题</td></tr>
+<tr><td><code>type</code></td><td>enum</td><td>✓</td><td>arxiv | crossref | rss | biorxiv</td></tr>
+<tr><td><code>query</code></td><td>str</td><td>—</td><td>arXiv: cat查询 · CrossRef: ISSN · RSS: URL</td></tr>
+<tr><td><code>tags</code></td><td>list[str]</td><td>—</td><td>标签: 顶会/期刊+分级+领域。用于筛选和归类</td></tr></table>
+
+<h2>三、Fetcher 策略模块</h2>
+<div class="page-grid">
+<div class="pg"><div class="pg-icon">📡</div><div class="pg-title">ArxivFetcher</div><div class="pg-desc"><strong>接口:</strong> arXiv API<br><strong>source_type:</strong> "arxiv"<br><strong>query格式:</strong> <code>cat:cs.LG AND all:"ICML"</code><br><strong>日期:</strong> API过滤</div></div>
+<div class="pg"><div class="pg-icon">📚</div><div class="pg-title">CrossrefFetcher</div><div class="pg-desc"><strong>接口:</strong> CrossRef API<br><strong>source_type:</strong> "crossref"<br><strong>query格式:</strong> <code>0950-7051</code>(ISSN)<br><strong>日期:</strong> from-pub-date过滤</div></div>
+<div class="pg"><div class="pg-icon">📰</div><div class="pg-title">RssFetcher</div><div class="pg-desc"><strong>接口:</strong> feedparser<br><strong>source_type:</strong> "rss"<br><strong>query格式:</strong> RSS/Atom URL<br><strong>日期:</strong> published_parsed / updated_parsed / summary回落<br><strong>过滤:</strong> TOC等元条目自动跳过</div></div>
+<div class="pg"><div class="pg-icon">🧬</div><div class="pg-title">BiorxivFetcher</div><div class="pg-desc"><strong>接口:</strong> bioRxiv API<br><strong>source_type:</strong> "biorxiv"<br><strong>query格式:</strong> (不使用)<br><strong>日期:</strong> API日期参数</div></div>
+</div>
+
+<h2>四、热点提取模块</h2>
+<div class="row">
+<div class="col2"><div class="card accent"><h4>YAKE 关键词提取</h4><p>无监督关键词提取算法<br>从全量摘要中提取关键短语<br>中英文通用 · 离线运行</p></div></div>
+<div class="col2"><div class="card"><h4>DeepSeek 翻译分类</h4><p>将关键词翻译为中文<br>分为"研究主题"和"技术方法"两类<br>需 DEEPSEEK_API_KEY</p></div></div>
+</div>
+
+<h2>五、输出格式</h2>
+<table><tr><th>产物</th><th>路径模式</th><th>格式</th><th>大小</th></tr>
+<tr><td>论文卡</td><td><code>out/paper_{source}_{topic}_{date}.html</code></td><td>自包含HTML</td><td>~300KB</td></tr>
+<tr><td>公众号卡</td><td><code>out/wechat_{date}.html</code></td><td>自包含HTML</td><td>~280KB</td></tr>
+<tr><td>Dashboard</td><td><code>out/index.html</code></td><td>卡片浏览面板</td><td>~570KB</td></tr>
+<tr><td>卡片JSON</td><td><code>data/cards/{card_id}.json</code></td><td>结构化数据</td><td>~50KB</td></tr>
+</table>
+
+<div class="note"><strong>设计约束：</strong> HTML零CDN依赖 · file://直开 · CSS变量控制主题 · 对比度≥5.3:1 · Jinja2模板渲染 · ensure_ascii=False JSON编码</div>
+
+</div>
+</body>
+</html>

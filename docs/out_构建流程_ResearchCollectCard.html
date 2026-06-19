@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>科研卡片 · 构建流程</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--t2:#8b949e;--t3:#6e7681;--a:#539bf5;--g:#3fb950;--o:#d29922;--r:#f85149;--gold:#C9A84C}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);padding:40px 24px}
+.w{max-width:1000px;margin:0 auto}
+h1{text-align:center;font-size:1.5rem;margin-bottom:4px}h1 span{color:var(--gold)}
+.sub{text-align:center;color:var(--t2);font-size:.78rem;margin-bottom:40px}
+h2{font-size:1rem;padding-left:12px;border-left:3px solid var(--gold);margin:44px 0 18px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:6px 0;text-align:center}
+.card h4{font-size:.76rem;margin-bottom:6px}.card p{font-size:.66rem;color:var(--t2);line-height:1.5;text-indent:0}
+.card.accent{border-left:3px solid var(--gold)}.card.g{border-left:3px solid var(--g)}
+.row{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0}
+.col2{flex:1;min-width:320px}
+.pipe{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0}
+.pipe .stage{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 18px;text-align:center;font-size:.7rem;min-width:98px}
+.pipe .stage .sn{font-size:.58rem;color:var(--t3);margin-bottom:3px}
+.pipe .stage .sl{font-weight:600;font-size:.75rem;margin-bottom:2px}
+.pipe .stage .ss{font-size:.6rem;color:var(--t2);line-height:1.5}
+.pipe .arrow{color:var(--gold);font-size:1rem}
+.note{background:rgba(201,168,76,.06);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:10px 14px;margin:10px 0;font-size:.68rem;color:var(--t2);line-height:1.6}
+.note strong{color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:.7rem;margin:10px 0}
+th{background:var(--surface);color:var(--gold);padding:8px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--t2)}
+.code-block{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-family:'Cascadia Code','Fira Code',monospace;font-size:.68rem;color:var(--g);line-height:1.8;overflow-x:auto;margin:8px 0}
+.code-block .kw{color:var(--a)}.code-block .cm{color:var(--t3)}
+</style>
+</head>
+<body>
+<div class="w">
+
+<h1><span>ResearchCollectCard</span> · 构建流程</h1>
+<p class="sub">从零到首张卡片 — 环境搭建 · 源配置 · 命令行使用</p>
+
+<h2>一、环境搭建</h2>
+<div class="pipe">
+<div class="stage"><div class="sn">Step 1</div><div class="sl">克隆仓库</div><div class="ss">git clone<br>github.com/bamhill/20260617_ME_ResearchCollectCard</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">Step 2</div><div class="sl">安装依赖</div><div class="ss">pip install -r requirements.txt<br>Python 3.10+</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">Step 3</div><div class="sl">配置Key</div><div class="ss">export DEEPSEEK_API_KEY=sk-xxx<br>缺了仅跳过热区</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">Step 4</div><div class="sl">启动WeRSS</div><div class="ss">docker start wewe-rss<br>公众号源需要</div></div>
+</div>
+
+<h2>二、数据流</h2>
+<div class="pipe">
+<div class="stage"><div class="sn">输入</div><div class="sl">sources.json</div><div class="ss">66源配置<br>id·type·query·tags</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">加载</div><div class="sl">Config.load()</div><div class="ss">Pydantic v2校验<br>标签筛选·类型路由</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">派发</div><div class="sl">FetchPipeline</div><div class="ss">source.type.value →<br>对应Fetcher实例</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">抓取</div><div class="sl">fetcher.fetch()</div><div class="ss">httpx/feedparser<br>API调用·RSS解析</div></div>
+<div class="arrow">→</div>
+<div class="stage"><div class="sn">输出</div><div class="sl">RawItem[]</div><div class="ss">统一数据格式<br>title·url·summary</div></div>
+</div>
+
+<h2>三、命令行参考</h2>
+<div class="code-block">
+<span class="cm"># 论文日报</span>
+<span class="kw">python cli.py</span> paper                              <span class="cm"># 顶会日报 (6源)</span>
+<span class="kw">python cli.py</span> paper --source journal             <span class="cm"># 期刊精选 (51源)</span>
+<span class="kw">python cli.py</span> paper --source journal --topic CAS1 可解释性  <span class="cm"># 交叉筛选</span>
+<span class="kw">python cli.py</span> paper --from 2026-06-10 --to 2026-06-18 --source journal
+
+<span class="cm"># 公众号日报</span>
+<span class="kw">python cli.py</span> wechat                             <span class="cm"># 今日7源</span>
+
+<span class="cm"># 管理</span>
+<span class="kw">python cli.py</span> sources                            <span class="cm"># 列出所有源</span>
+<span class="kw">python cli.py</span> build                              <span class="cm"># 重建dashboard</span>
+<span class="kw">python -m pytest</span> tests/ -q                        <span class="cm"># 46 tests</span>
+</div>
+
+<h2>四、新增来源</h2>
+<div class="row">
+<div class="col2"><div class="card accent"><h4>+ CrossRef 期刊</h4><p>编辑 sources.json<br>{"type":"crossref"}<br>"query":"ISSN号"<br>加 tags 标签</p></div></div>
+<div class="col2"><div class="card g"><h4>+ RSS 直连</h4><p>编辑 sources.json<br>{"type":"rss"}<br>"query":"RSS_URL"<br>自动归入 journal_sources()</p></div></div>
+</div>
+
+<h2>五、输出路径</h2>
+<table><tr><th>类型</th><th>路径</th><th>格式</th></tr>
+<tr><td>论文卡</td><td>out/paper_{source}_{topic}_{date}.html</td><td>杂志风HTML</td></tr>
+<tr><td>公众号卡</td><td>out/wechat_{date}.html</td><td>杂志风HTML</td></tr>
+<tr><td>Dashboard</td><td>out/index.html</td><td>卡片浏览面板</td></tr>
+<tr><td>卡片数据</td><td>data/cards/*.json</td><td>结构化JSON</td></tr></table>
+
+<div class="note"><strong>注意：</strong> out/ 目录已纳入版本控制，生成的卡片可直接在GitHub预览。data/cards/ 不提交（gitignore）。</div>
+
+</div>
+</body>
+</html>
