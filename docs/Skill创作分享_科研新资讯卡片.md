@@ -1,6 +1,5 @@
 # 【Skill 创作】我做了一个"自动生成杂志风 AI 科研日报"的 Skill
 
-> 投稿至 TRAE 官方中文社区 SOLO 技能创作赛
 > GitHub 仓库（公开）：https://github.com/bamhill/20260617_ME_ResearchCollectCard
 > 设计灵感与文案范式来源：[@大话数据分析的 AI Daily Report Skill](https://forum.trae.cn/t/topic/18195)
 
